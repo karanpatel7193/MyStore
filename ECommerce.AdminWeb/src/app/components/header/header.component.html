@@ -1,0 +1,67 @@
+<header class="header-container">
+	<div class="container-fluid d-flex align-items-center header">
+		<div class="d-flex align-items-center">
+			<a routerLink="dashboard" class="text-decoration-none dfa-logo">
+				<i class="bi bi-bar-chart-line main-logo"></i>
+			</a>
+			<h4 class="main-header cursor-pointor ms-3" title="Portfolio Management System">
+				E-Commerce
+			</h4>
+		</div>
+
+		<div class="d-flex align-items-center ms-auto">
+			<div class="flex-shrink-0 dropdown">
+				<a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+					data-bs-toggle="dropdown" aria-expanded="false">
+					<div class="rounded-circle user-pic p-1 border border-white">
+						<img [src]="currentUser!.imageSrc" onerror="this.src='/assets/images/Avatar-1.png';" alt=""
+							width="32" height="32" class="rounded-circle" />
+					</div>
+					<div class="ms-3 user-info text-white d-none d-lg-block">
+						<div>
+							{{ currentUser.firstName }}
+							{{ currentUser.lastName }}
+						</div>
+						<div class="small text-muted user-role">
+							{{ currentUser.roleName }}
+						</div>
+					</div>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-light text-small shadow">
+					<li>
+						<a class="dropdown-item" (click)="openProfileModal()">Profile</a>
+					</li>
+					<li>
+						<a class="dropdown-item" (click)="goToChangePassword()">Change Password</a>
+					</li>
+					<li>
+						<a class="dropdown-item" (click)="logout()">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>
+
+
+<!-- Profile Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
+	aria-hidden="true" [ngClass]="{ show: showProfileModal }"
+	[ngStyle]="{ display: showProfileModal ? 'block' : 'none' }" (click)="onBackdropClick($event)">
+	<div class="modal-dialog" role="document" (click)="stopPropagation($event)">
+		<div class="modal-content">
+			<app-profile></app-profile>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel"
+	aria-hidden="true" [ngClass]="{ show: showModal }" [ngStyle]="{ display: showModal ? 'block' : 'none' }"
+	(click)="onBackdropClick($event)">
+	<div class="modal-dialog" role="document" (click)="stopPropagation($event)">
+		<div class="modal-content">
+			<!-- Modal Content (ChangePasswordComponent) -->
+			<app-change-password (closeModal)="closeModal()"></app-change-password>
+		</div>
+	</div>
+</div>

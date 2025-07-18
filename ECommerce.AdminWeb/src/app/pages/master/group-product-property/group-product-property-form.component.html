@@ -1,0 +1,35 @@
+<div class="card tile-panel">
+    <div class="col-lg-12 col-md-10">
+        <form #categoryPropertyForm="ngForm" novalidate>
+            <div class="rounded">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">{{ mode }} Category Product Property</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-1">
+                            <div class="form-group mb-1">
+                                <label for="propertyId" class="form-label">Property Name</label>
+                                <div class="input-group">
+                                    <select class="form-select shadow-sm" [(ngModel)]="groupProductProperty.propertyId"
+                                        id="propertyId" name="propertyId">
+                                        <option value="0">Select Property</option>
+                                        <option *ngFor="let property of properties" [value]="property.id">{{ property.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer d-flex">
+                    <button class="btn btn-primary" (click)="save(categoryPropertyForm.valid)" [disabled]="!categoryPropertyForm.valid" title="Click here to submit this record.">
+                        Save
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

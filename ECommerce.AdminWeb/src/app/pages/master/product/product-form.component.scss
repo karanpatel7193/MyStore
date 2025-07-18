@@ -1,0 +1,55 @@
+.position-relative:hover .btn-danger {
+    opacity: 1; /* Show the delete button on hover */
+}
+
+.position-relative .btn-danger {
+    opacity: 0; /* Hide the delete button by default */
+    transition: opacity 0.3s ease; /* Smooth transition effect */
+}
+
+.img-thumbnail {
+    transition: transform 0.3s ease; /* Smooth scaling effect on hover */
+}
+
+.img-thumbnail:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+.media-item {
+    position: relative; /* Ensure the delete button is positioned relative to the media item */
+    display: inline-block; /* Keep items inline */
+}
+
+.media-item:hover .btn-danger {
+    opacity: 1; /* Show the delete button on hover */
+}
+
+.media-item .btn-danger {
+    opacity: 0; /* Hide the delete button by default */
+    transition: opacity 0.3s ease; /* Smooth transition effect */
+    z-index: 2; /* Ensure the delete button is above the image */
+}
+
+.img-thumbnail {
+    transition: transform 0.3s ease; /* Smooth scaling effect on hover */
+    z-index: 1; /* Ensure the image remains below the delete button */
+}
+
+.media-item:hover .img-thumbnail {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+.color-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+}
+
+.color-box.selected {
+    border: 3px solid #000;
+}
+
+.btn-outline-secondary.active {
+    background-color: #007bff;
+    color: white;
+}

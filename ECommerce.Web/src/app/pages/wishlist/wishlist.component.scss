@@ -1,0 +1,28 @@
+.badge {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  .row1{
+    margin-top: 20px;
+  }
+  
+  .table th, .table td {
+    vertical-align: middle;
+  }
+  
+  .img-thumbnail {
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .img-thumbnail:hover {
+    transform: scale(1.1);
+  }
+
+//   .py-5 {
+//     padding-top: 3rem !important;
+//     padding-bottom: 3rem !important;
+//     background-color: #80808021;
+// }
+  

@@ -1,0 +1,97 @@
+.card{
+    min-height: 250px;
+  }
+  .py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+    background-color: #80808021;
+}
+  .card-product {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .card-product img {
+    transition: opacity 0.3s ease;
+
+  }
+  .image-set{
+    min-height: 120px;
+  }
+  .fs-6{
+    min-height: 50px;
+  }
+  .filter-link:hover {
+    color: #007bff !important; 
+    text-decoration: underline;
+  }
+  
+  .card-product:hover img {
+    opacity: 0.7;
+  }
+  
+  .card-product-action {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+  }
+  
+  .card-product:hover .card-product-action {
+    opacity: 1;
+  }
+  
+  .btn-action {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+  }
+  
+  .btn-action:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  
+  .bi {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .bi:hover {
+    color: #000;
+  }
+  
+  .custom-btn {
+    transition: all 0.3s ease-in-out;
+  }
+  .custom-btn:hover {
+    background-color: #32cd32; /* Lime green */
+    color: #fff; /* White text */
+    transform: scale(1.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .btn-action.bg-danger {
+    background-color: #dc3545 !important;
+    color: white !important;
+  }
+  .btn-action {
+    /* Default button styling */
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .btn-action.bg-danger {
+    background-color: red; /* Red background */
+  }
+  
+  .btn-action.text-danger {
+    color: white; /* Red icon */
+  }
+  

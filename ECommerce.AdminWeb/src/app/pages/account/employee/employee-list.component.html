@@ -1,0 +1,296 @@
+        Employees
+        <button (click)="add()" class="btn btn-icon btn-tnx pull-right"
+            [ngClass]="{'btn-outline-success':access.canInsert, 'btn-outline-secondary':!access.canInsert}"
+            [disabled]="!access.canInsert"
+            title="{{access.canInsert ? 'Click here to add new record.' : 'You do not have add access of this page.'}}"><i
+                class="fa fa-plus"></i></button>
+        <div class="input-group pull-right header-button" style="width:250px;">
+            <input type="text" class="form-control" [(ngModel)]="employeeParameter.id" placeholder="Search here..." />
+            <span class="input-group-btn">
+                <button (click)="search()" class="btn btn-icon btn-tnx"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form #SearchEmployeeForm="ngForm" novalidate>
+                            <span>Search Employee</span>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inId">Id</label>
+                                    <div class="input-group-sm">
+                                        <select class="form-control" [(ngModel)]="employeeParameter.id" id="inSearchId"
+                                            name="inSearchId">
+                                            <option value="0">Select </option>
+                                            <option [value]="item.id" *ngFor="let item of states">{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inFirstName">First Name</label>
+                                    <div class="input-group-sm">
+                                        <input type="text" class="form-control"
+                                            [(ngModel)]="employeeParameter.id" id="inSearchFirstName"
+                                            name="inSearchFirstName" placeholder="First Name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inMiddleName">Middle Name</label>
+                                    <div class="input-group-sm">
+                                        <input type="text" class="form-control"
+                                            [(ngModel)]="employeeParameter.id" id="inSearchMiddleName"
+                                            name="inSearchMiddleName" placeholder="Middle Name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inLastName">Last Name</label>
+                                    <div class="input-group-sm">
+                                        <input type="text" class="form-control" [(ngModel)]="employeeParameter.id"
+                                            id="inSearchLastName" name="inSearchLastName" placeholder="Last Name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inGender">Gender</label>
+                                    <div class="input-group-sm">
+                                        <input type="text" class="form-control" [(ngModel)]="employeeParameter.id"
+                                            id="inSearchGender" name="inSearchGender" placeholder="Gender" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inEmail">Email</label>
+                                    <div class="input-group-sm">
+                                        <input type="text" class="form-control" [(ngModel)]="employeeParameter.id"
+                                            id="inSearchEmail" name="inSearchEmail" placeholder="Email" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inPhoneNumber">Phone Number</label>
+                                    <div class="input-group-sm">
+                                        <input type="text" class="form-control"
+                                            [(ngModel)]="employeeParameter.id" id="inSearchPhoneNumber"
+                                            name="inSearchPhoneNumber" placeholder="Phone Number" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inDOB">DOB</label>
+                                    <div class="input-group-sm">
+                                        <input type="date" class="form-control" [(ngModel)]="employeeParameter.dob"
+                                            id="inSearchDOB" name="inSearchDOB" placeholder="DOB" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inDateOfJoin">Date Of Join</label>
+                                    <div class="input-group-sm">
+                                        <input type="date" class="form-control"
+                                            [(ngModel)]="employeeParameter.id" id="inSearchDateOfJoin"
+                                            name="inSearchDateOfJoin" placeholder="Date Of Join" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inEducation">Education</label>
+                                    <div class="input-group-sm">
+                                        <input type="text" class="form-control"
+                                            [(ngModel)]="employeeParameter.id" id="inSearchEducation"
+                                            name="inSearchEducation" placeholder="Education" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inCityId">City Id</label>
+                                    <div class="input-group-sm">
+                                        <select class="form-control" [(ngModel)]="employeeParameter.cityId"
+                                            id="inSearchCityId" name="inSearchCityId">
+                                            <option value="0">Select City</option>
+                                            <option [value]="item.id" *ngFor="let item of citys">{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="inStateId">State Id</label>
+                                    <div class="input-group-sm">
+                                        <select class="form-control" [(ngModel)]="employeeParameter.stateId"
+                                            id="inSearchStateId" name="inSearchStateId">
+                                            <option value="0">Select State</option>
+                                            <option [value]="item.id" *ngFor="let item of states">{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-success btn-tn" (click)="search()">Search</button>
+                                <button type="submit" class="btn btn-secondary btn-tn" (click)="reset()">Reset</button>
+                            </div>
+                </form>
+            </div>
+        </div>
+        <hr />
+        <table class="table table-bordered sort">
+            <thead>
+                <tr column-resizer [id]="'employee-list'">
+
+                    <th (click)="sort('Id')" class="sort-header">
+                        Id
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'Id'), 'fa-sort-asc': (employeeParameter.sortExpression == 'Id' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'Id' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('FirstName')" class="sort-header">
+                        FirstName
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'FirstName'), 'fa-sort-asc': (employeeParameter.sortExpression == 'FirstName' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'FirstName' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('MiddleName')" class="sort-header">
+                        MiddleName
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'MiddleName'), 'fa-sort-asc': (employeeParameter.sortExpression == 'MiddleName' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'MiddleName' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('LastName')" class="sort-header">
+                        LastName
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'LastName'), 'fa-sort-asc': (employeeParameter.sortExpression == 'LastName' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'LastName' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('Gender')" class="sort-header">
+                        Gender
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'Gender'), 'fa-sort-asc': (employeeParameter.sortExpression == 'Gender' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'Gender' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('Email')" class="sort-header">
+                        Email
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'Email'), 'fa-sort-asc': (employeeParameter.sortExpression == 'Email' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'Email' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('PhoneNumber')" class="sort-header">
+                        PhoneNumber
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'PhoneNumber'), 'fa-sort-asc': (employeeParameter.sortExpression == 'PhoneNumber' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'PhoneNumber' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('DOB')" class="sort-header">
+                        DOB
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'DOB'), 'fa-sort-asc': (employeeParameter.sortExpression == 'DOB' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'DOB' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('DateOfJoin')" class="sort-header">
+                        DateOfJoin
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'DateOfJoin'), 'fa-sort-asc': (employeeParameter.sortExpression == 'DateOfJoin' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'DateOfJoin' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('Education')" class="sort-header">
+                        Education
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'Education'), 'fa-sort-asc': (employeeParameter.sortExpression == 'Education' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'Education' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('CityId')" class="sort-header">
+                        CityId
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'CityId'), 'fa-sort-asc': (employeeParameter.sortExpression == 'CityId' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'CityId' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('StateId')" class="sort-header">
+                        StateId
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (employeeParameter.sortExpression != 'StateId'), 'fa-sort-asc': (employeeParameter.sortExpression == 'StateId' && employeeParameter.sortDirection == 'asc'), 'fa-sort-desc': (employeeParameter.sortExpression == 'StateId' && employeeParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th style="width:90px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of employeeGrid?.employees;" (click)="employeeParameter.id == item.id;"
+                    [ngClass]="{'selected-row': (employeeParameter.id == item.id)}">
+                    <td>{{item.id}}</td>
+                    <td>{{item.firstName}}</td>
+                    <td>{{item.middleName}}</td>
+                    <td>{{item.lastName}}</td>
+                    <td>{{item.gender}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.phoneNumber}}</td>
+                    <td>{{item.dob}}</td>
+                    <td>{{item.dateOfJoin}}</td>
+                    <td>{{item.education}}</td>
+                    <td>{{item.cityId}}</td>
+                    <td>{{item.stateId}}</td>
+
+                    <td>
+                        <button class="btn btn-icon btn-tnx" (click)="edit(item.id)"
+                            [ngClass]="{'btn-outline-primary':access.canUpdate, 'btn-outline-secondary':!access.canUpdate}"
+                            [disabled]="!access.canUpdate"
+                            title="{{access.canUpdate ? 'Click here to edit this record.' : 'You do not have edit access of this page.'}}"><i
+                                class="fa fa-pencil"></i></button>
+                        <button class="btn btn-icon btn-tnx" (click)="delete(item.id)"
+                            [ngClass]="{'btn-outline-danger':access.canDelete, 'btn-outline-secondary':!access.canDelete}"
+                            [disabled]="!access.canDelete"
+                            title="{{access.canDelete ? 'Click here to delete this record.' : 'You do not have delete access of this page.'}}"><i
+                                class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <div class="pull-left card-header-controls">
+        <select [(ngModel)]="employeeParameter.pageSize" (change)="search()" class="form-control">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+        </select>
+    </div>
+    <div class="pull-left total-records">Total Record(s) <span>{{employeeGrid.totalRecords}}</span></div>
+    <div class="pull-right">
+    </div>

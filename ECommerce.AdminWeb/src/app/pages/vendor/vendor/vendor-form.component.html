@@ -1,0 +1,162 @@
+<div class="card tile-panel">
+    <div class="card-header">
+        <h4 style="display: contents;" class="card-title mb-0">{{mode}} Vendor</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary">
+                        <h5 class="mb-0">Vendor Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <form #vendorDetailsForm="ngForm" novalidate>
+                            <div class="form-group mb-3">
+                                <label for="inName" class="form-label">Vendor Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="vendor.name" id="inName"
+                                    name="inName" placeholder="Enter vendor name" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" [(ngModel)]="vendor.email" id="inEmail"
+                                    name="inEmail" placeholder="Enter email" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inPhone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" [(ngModel)]="vendor.phone" id="inPhone"
+                                    name="inPhone" placeholder="Enter phone number" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inAddress" class="form-label">Address</label>
+                                <input type="tel" class="form-control" [(ngModel)]="vendor.address" id="inAddress"
+                                    name="inAddress" placeholder="Enter vendor address" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="inCountryId" class="form-label">Country</label>
+                                <select class="form-select" [(ngModel)]="vendor.countryId" id="inCountryId"
+                                    name="inCountryId" required (change)="onCountryChange()">
+                                    <option value="0">Select Country</option>
+                                    <option *ngFor="let country of countries" [value]="country.id">
+                                        {{ country.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inStateId" class="form-label">State</label>
+                                <select class="form-select" [(ngModel)]="vendor.stateId" id="inStateId" name="inStateId"
+                                    required>
+                                    <option value="0">Select State</option>
+                                    <option *ngFor="let state of states" [value]="state.id">
+                                        {{ state.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary">
+                        <h5 class="mb-0"> Bank Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <form #vendorFinancialForm="ngForm" novalidate>
+                            <div class="form-group mb-3">
+                                <label for="inBankAccountNumber" class="form-label">Bank Account Number</label>
+                                <input type="text" class="form-control" [(ngModel)]="vendor.bankAccountNumber"
+                                    id="inBankAccountNumber" name="inBankAccountNumber"
+                                    placeholder="Enter bank account number">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="inBankName" class="form-label">Bank Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="vendor.bankName" id="inBankName"
+                                    name="inBankName" placeholder="Enter bank name">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="inIfscCode" class="form-label">IFSC Code</label>
+                                <input type="text" class="form-control" [(ngModel)]="vendor.ifscCode" id="inIfscCode"
+                                    name="inIfscCode" placeholder="Enter IFSC code">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="inTotalOutstanding" class="form-label">Total Outstanding</label>
+                                <input type="number" class="form-control" [(ngModel)]="vendor.totalOutstanding"
+                                    id="inTotalOutstanding" name="inTotalOutstanding"
+                                    placeholder="Enter total outstanding">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="inTotalPaid" class="form-label">Total Paid</label>
+                                <input type="number" class="form-control" [(ngModel)]="vendor.totalPaid"
+                                    id="inTotalPaid" name="inTotalPaid" placeholder="Enter total paid">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="inTotalInvoices" class="form-label">Total Invoices</label>
+                                <input type="number" class="form-control" [(ngModel)]="vendor.totalInvoices"
+                                    id="inTotalInvoices" name="inTotalInvoices" placeholder="Enter total invoices">
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary">
+                        <h5 class="mb-0">Financial Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <form #vendorFinancialForm="ngForm" novalidate>
+                            <div class="form-group mb-3">
+                                <label for="inPostalCode" class="form-label">Postal Code</label>
+                                <input type="text" class="form-control" [(ngModel)]="vendor.postalCode"
+                                    id="inPostalCode" name="inPostalCode" placeholder="Enter postal code" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inTaxNumber" class="form-label">Tax Number</label>
+                                <input type="text" class="form-control" [(ngModel)]="vendor.taxNumber" id="inTaxNumber"
+                                    name="inTaxNumber" placeholder="Enter tax number" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="inContactPersonName" class="form-label">Contact Person Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="vendor.contactPersonName"
+                                    id="inContactPersonName" name="inContactPersonName"
+                                    placeholder="Enter contact person name" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inContactPersonPhone" class="form-label">Contact Person Phone</label>
+                                <input type="tel" class="form-control" [(ngModel)]="vendor.contactPersonPhone"
+                                    id="inContactPersonPhone" name="inContactPersonPhone"
+                                    placeholder="Enter contact person phone" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="inStatus" class="form-label">Status</label>
+                                <select class="form-select" [(ngModel)]="vendor.status" id="inStatus" name="inStatus">
+                                    <option [ngValue]="true">Active</option>
+                                    <option [ngValue]="false">Inactive</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card-footer d-flex">
+        <button type="submit" class="btn btn-primary"
+            (click)="save(vendorDetailsForm.valid && vendorFinancialForm.valid)"
+            [ngClass]="{'btn btn-primary': !(!access.canInsert && !access.canUpdate), 'btn-outline-secondary': !access.canInsert && !access.canUpdate}"
+            title="{{!access.canInsert && !access.canUpdate ? 'You do not have add or edit access to this page.' : 'Click here to submit this record.'}}">
+            Save
+        </button>
+        <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
+    </div>
+</div>

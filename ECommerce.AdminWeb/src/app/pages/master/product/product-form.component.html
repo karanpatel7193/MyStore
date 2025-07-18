@@ -1,0 +1,393 @@
+<div class="card tile-panel">
+    <div class="card-header">
+        <h4 style="display: contents;" class="card-title mb-0">{{mode}} Product</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary">
+                        <h5 class="mb-0">Upload Media</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label  class="form-label">Product Image/Video</label>
+                                <div class="user-img-wrap">
+                                    <img class="product-image"
+                                        [src]="productMediaModel.file.content || './assets/images/Avatar-1.png'"
+                                        onerror="this.src='./assets/images/Avatar-1.png'" alt="Product Media"
+                                        class="img-thumbnail mb-2" width="100" />
+                                    <app-file-upload [selectedFile]="productMediaModel.file.name"
+                                        (onFileSelected)="fileUpload($event)" id="inFile" name="inFile"
+                                        aria-activedescendant="">
+                                    </app-file-upload>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3 mb-3">
+                            <label for="inMediaDescription" class="form-label">Media Description</label>
+                            <input type="text" class="form-control" [(ngModel)]="productMediaModel.description"
+                                id="inMediaDescription" name="inMediaDescription" placeholder="Enter Media Description"
+                                required>
+                        </div>
+                        <button class="btn btn-primary" type="button" (click)="uploadMedia()">Upload</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div *ngIf="product.productMedias.length > 0; else noMedia" class="d-flex flex-wrap gap-3">
+                        <div *ngFor="let media of product.productMedias; let i = index"
+                            class="position-relative media-item">
+                            <img *ngIf="media.file" [src]="media.file.content" alt="Media" class="img-thumbnail"
+                                width="120" style="cursor: pointer;" />
+                            <button class="btn btn-danger btn-sm position-absolute top-0 start-100 translate-middle"
+                                (click)="deleteMedia(i)"> &times;
+                            </button>
+                        </div>
+                    </div>
+                    <ng-template #noMedia>
+                        <p>No media uploaded yet.</p>
+                    </ng-template>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary">
+                        <h5 class="mb-0">Product Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <form #SearchProductForm="ngForm" novalidate>
+                            <div class="form-group mb-3">
+                                <label for="inName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="product.name" id="inName"
+                                    name="inName" placeholder="Enter product name" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inDescription" class="form-label">Description</label>
+                                <textarea class="form-control" [(ngModel)]="product.description" id="inDescription"
+                                    name="inDescription" placeholder="Enter product description"></textarea>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="inCategoryId" class="form-label">Category</label>
+                                <select class="form-select" [(ngModel)]="product.categoryId"
+                                    [disabled]="product.parentProductId > 0" id="inCategoryId" name="inCategoryId"
+                                    required (ngModelChange)="onCategoryChanged($event)">
+                                    <option [ngValue]="null" disabled>Select Category</option>
+                                    <option *ngFor="let category of categories" [ngValue]="category.id">
+                                        {{ category.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inSKU" class="form-label">Product SKU</label>
+                                <input type="text" class="form-control" [(ngModel)]="product.sku" id="inSKU"
+                                    name="inSKU" placeholder="Enter product SKU" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="inUPC" class="form-label">Product UPC / Barcode</label>
+                                <input type="text" class="form-control" [(ngModel)]="product.upc" id="inUPC"
+                                    name="inUPC" placeholder="Enter product UPC" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary">
+                        <h5 class="mb-0">Inventory & Price Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <form #productInventoriesForm="ngForm" novalidate>
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inOpeningQty" class="form-label">Opening Quantity</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.openingQty"
+                                        id="inOpeningQty" name="inOpeningQty" placeholder="Enter opening quantity"
+                                        required>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inBuyQty" class="form-label">Buy Quantity</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.buyQty" id="inBuyQty"
+                                        name="inBuyQty" placeholder="Enter buy quantity" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inLockQty" class="form-label">Lock Quantity</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.lockQty"
+                                        id="inLockQty" name="inLockQty" placeholder="Enter lock quantity" required>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inOrderQty" class="form-label">Order Quantity</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.orderQty"
+                                        id="inOrderQty" name="inOrderQty" placeholder="Enter order quantity" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inSellQty" class="form-label">Sell Quantity</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.sellQty"
+                                        id="inSellQty" name="inSellQty" placeholder="Enter sell quantity" required>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inClosingQty" class="form-label">Closing Quantity</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.closingQty"
+                                        id="inClosingQty" name="inClosingQty" placeholder="Enter closing quantity"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inCostPrice" class="form-label">Cost Price</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.costPrice"
+                                        id="inCostPrice" name="inCostPrice" placeholder="Enter cost price" required>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inSellPrice" class="form-label">Sell Price</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.sellPrice"
+                                        id="inSellPrice" name="inSellPrice" placeholder="Enter sell price" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inDiscountPercentage" class="form-label">Discount Percentage</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.discountPercentage"
+                                        id="inDiscountPercentage" name="inDiscountPercentage"
+                                        placeholder="Enter discount percentage" required>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inDiscountAmount" class="form-label">Discount Amount</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.discountAmount"
+                                        id="inDiscountAmount" name="inDiscountAmount"
+                                        placeholder="Enter discount amount" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="inFinalSellPrice" class="form-label">Final Sell Price</label>
+                                    <input type="number" class="form-control" [(ngModel)]="product.finalSellPrice"
+                                        id="inFinalSellPrice" name="inFinalSellPrice"
+                                        placeholder="Enter final sell price" required>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label class="form-label">
+                                        <input class="custom-control-input me-1" type="checkbox" name="isExpiry"
+                                            id="isExpiry" [(ngModel)]="product.isExpiry">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description">Expiry Product</span>
+                                    </label>
+
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Variants Combination Section -->
+            <div *ngIf="!hideCombinationForm" class="col-lg-12 col-md-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary d-flex justify-content-between align-items-center">
+                        <h4 style="display: contents;" class="card-title mb-0">Variants</h4>
+                        <button (click)="add()" class="btn btn-icon" [ngClass]="{
+                                'btn-outline-success': access.canInsert,
+                                'btn-outline-secondary': !access.canInsert
+                                }" title="{{ access.canInsert ? 'Add a new variant.' : 'No access to add.' }}">
+                            <i class="fa fa-plus"></i> Variant Combinatioin
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div *ngIf="showVariantForm" class="card mt-3 shadow-sm">
+                            <div class="card-header bg-primary ">
+                                <h5 class="mb-0">{{ editingIndex !== null ? 'Edit Variant' : 'Add Variant' }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <form #variantForm="ngForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Property</label>
+                                        <select class="form-select" [(ngModel)]="variantPropertyId"
+                                            name="variantPropertyId" [disabled]="editingIndex !== null" required>
+                                            <option [ngValue]="0" disabled selected>Select Property</option>
+                                            <option *ngFor="let property of categoryPropertyModel"
+                                                [ngValue]="property.propertyId">
+                                                {{ property.propertyName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Values</label>
+                                        <tag-input [(ngModel)]="variantValues" name="variantValues" [editable]="true"
+                                            [removable]="true" [addOnBlur]="true" [pasteSplitPattern]="','"
+                                            [modelAsStrings]="true">
+                                        </tag-input>
+
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" (click)="saveVariant()" class="btn me-2"
+                                            [disabled]="variantForm.invalid" [ngClass]="{
+                                            'btn-primary': access.canInsert || access.canUpdate,
+                                            'btn-outline-secondary': !access.canInsert && !access.canUpdate
+                                        }">
+                                            <i class="fa fa-save me-1"></i> Save
+                                        </button>
+
+                                        <button type="button" class="btn btn-outline-secondary" (click)="resetForm()">
+                                            <i class="fa fa-times me-1"></i> Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Variants Table -->
+                        <div class="mt-4 table-responsive">
+                            <table class="table table-bordered align-middle ">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Index</th>
+                                        <th>Id</th>
+                                        <th>Property</th>
+                                        <th>Value</th>
+                                        <th style="width: 100px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngIf="variantCombinations.length === 0">
+                                        <td colspan="4" class="text-center text-muted">No variants added yet.</td>
+                                    </tr>
+                                    <tr *ngFor="let variant of variantCombinations; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ variant.id }}</td>
+                                        <td>{{ variant.variantPropertyName }}</td>
+                                        <td>{{ variant.variantPropertyValue }}</td>
+                                        <td>
+                                            <button class="btn btn-warning btn-sm me-2" (click)="editVariant(i)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm" (click)="removeVariant(i)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Matrix Section -->
+            <div *ngIf="!hideCombinationForm" class="col-lg-12 col-md-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary d-flex justify-content-between align-items-center">
+                        <h4 class="card-title mb-0">Variant List</h4>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="text-muted">
+                                Total: {{ useGeneratedMatrix ? generatedMatrix.length : apiMatrix.length }}
+                            </span>
+                            <button class="btn btn-icon btn-tnx btn-primary d-flex align-items-center justify-content-center"
+                                    style="width: 38px; height: 38px;" 
+                                    (click)="refreshMatrix()" title="Refresh Matrix">
+                                <i class="fa fa-cogs"></i>
+                            </button>
+                            <button class="btn btn-icon btn-tnx btn-primary d-flex align-items-center justify-content-center"
+                                    style="width: 38px; height: 38px;" 
+                                    (click)="syncAll()" title="Click to sync All Variants Products">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body table-wrapper">
+                        <div class="table-scroll">
+                            <table class="table table-hover common-table-bordered main-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-start">Index</th>
+                                        <th class="text-start">Image</th>
+                                        <th class="text-start">Id</th>
+                                        <th class="text-start">Name</th>
+                                        <th class="text-start">ProductVariantIndexs</th>
+                                        <th class="text-start">SKU</th>
+                                        <th class="text-start">UPC/Barcode</th>
+                                        <th class="text-end">Final Price</th>
+                                        <th *ngIf="access.canUpdate || access.canDelete" class="text-start"
+                                            style="width: 150px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- No variant fallback -->
+                                    <tr *ngIf="!useGeneratedMatrix && apiMatrix.length === 0">
+                                        <td colspan="100%" class="text-center text-muted">No variant combinations
+                                            available from API.</td>
+                                    </tr>
+                                    <tr *ngIf="useGeneratedMatrix && generatedMatrix.length === 0">
+                                        <td colspan="100%" class="text-center text-muted">No new variant combinations
+                                            generated.</td>
+                                    </tr>
+
+                                    <!-- API Variant List -->
+                                    <tr
+                                        *ngFor="let item of useGeneratedMatrix ? generatedMatrix : apiMatrix; let i = index; trackBy: trackByIndex">
+                                        <td class="text-end">{{ i + 1 }}</td>
+                                        <td class="text-start">
+                                            <img *ngIf="item.thumbUrl" [src]="item.thumbUrl" alt="Image" width="40" />
+                                        </td>
+                                        <td class="text-start">{{ item.id }}</td>
+                                        <td class="text-start">{{ item.name }}</td>
+                                        <td class="text-start">
+                                            <span>{{ getProductCombinationIds(item) }}</span>
+                                          </td>
+                                        <td class="text-start">{{ item.sku }}</td>
+                                        <td class="text-start">{{ item.upc }}</td>
+                                        <td class="text-end">{{ item.finalSellPrice | currency }}</td>
+                                        <td *ngIf="access.canUpdate || access.canDelete" class="text-start">
+                                            <button *ngIf="item.id"
+                                                class="btn btn-sm btn-outline-primary me-2"
+                                                (click)="editMatrix(item.id)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button *ngIf="item.id"
+                                                class="btn btn-sm btn-outline-danger me-2"
+                                                (click)="deleteMatrix(item.id)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <button *ngIf="item.id"
+                                                (click)="sync(item.id)"
+                                                class="btn btn-sm btn-primary me-2"
+                                                title="Click here to Sync Product '{{ item.name }}'">
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </button>
+                                            <span *ngIf="!item.id" class="text-muted">
+                                                Preview Only <i class="bi bi-arrow-repeat"></i>
+                                            </span>
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer d-flex">
+            <button type="submit" class="btn btn-primary"
+                (click)="save(SearchProductForm.valid && productInventoriesForm.valid)"
+                [ngClass]="{'btn btn-primary': !(!access.canInsert && !access.canUpdate), 'btn-outline-secondary': !access.canInsert && !access.canUpdate}"
+                title="{{!access.canInsert && !access.canUpdate ? 'You do not have add or edit access to this page.' : 'Click here to submit this record.'}}">
+                Save
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
+        </div>
+    </div>

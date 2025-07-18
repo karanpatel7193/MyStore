@@ -1,0 +1,44 @@
+<div class="card tile-panel ">
+    <div class="col-lg-12 col-md-10">
+        <form #propertyForm="ngForm" novalidate>
+            <div class="rounded">
+                <div class="card-header  ">
+                    <h4 class="card-title mb-0">{{mode}} Property</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="inName">Name</label>
+                                <div class=" mt-2">
+                                    <input type="text" class="form-control shadow-sm" [(ngModel)]="property.name" id="inName" name="inName" placeholder="Name" required #inName="ngModel" [ngClass]="{'form-control-danger':(propertyForm.submitted || inName.dirty  || inName.touched) && (inName.invalid)}">
+                                    <div class="invalid-feedback" *ngIf="(propertyForm.submitted && inName.invalid) || (inName.dirty && inName.invalid) || (inName.touched && inName.invalid)">
+                                       Name is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="inDescription">Description</label>
+                                <div class=" mt-2">
+                                    <input type="text" class="form-control shadow-sm" [(ngModel)]="property.description" id="inDescription" name="inDescription" placeholder="Description" required #inDescription="ngModel" [ngClass]="{'form-control-danger':(propertyForm.submitted || inDescription.dirty  || inDescription.touched) && (inDescription.invalid)}">
+                                    <div class="invalid-feedback" *ngIf="(propertyForm.submitted && inDescription.invalid) || (inDescription.dirty && inDescription.invalid) || (inDescription.touched && inDescription.invalid)">
+                                        Description is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex flex-column flex-sm-row gap-2">
+                    <button type="submit" class="btn btn-primary" (click)="save(propertyForm.valid ?? false)"  [ngClass]="{'btn btn-primary': !(!access.canInsert && !access.canUpdate), 'btn-outline-secondary': !access.canInsert && !access.canUpdate}"  title="{{!access.canInsert && !access.canUpdate ? 'You do not have add or edit access to this page.' : 'Click here to submit this record.'}}">Save</button>
+                    <button type="button" class="btn btn-outline-secondary mb-2 mb-sm-0" (click)="cancle()">Cancel</button>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>ECommerce.Sql</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{62e3331d-89b3-424a-ba1d-ed8f814907e9}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath />
+    <RootNamespace>PortfolioManagement.Sql</RootNamespace>
+    <AssemblyName>PortfolioManagement.Sql</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Functions" />
+    <Folder Include="Stored Procedures" />
+    <Folder Include="Tables" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Functions\fnJavaScriptName.sql" />
+    <Build Include="Functions\fnSplit.sql" />
+    <Build Include="Functions\fnUserFriendlyName.sql" />
+    <Build Include="Stored Procedures\_CodeGenerator.sql" />
+    <Build Include="Stored Procedures\Master_Delete.sql" />
+    <Build Include="Stored Procedures\Master_Insert.sql" />
+    <Build Include="Stored Procedures\Master_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Master_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\Master_Update.sql" />
+    <Build Include="Stored Procedures\MasterValue_SelectForCache.sql" />
+    <Build Include="Stored Procedures\Menu_Delete.sql" />
+    <Build Include="Stored Procedures\Menu_Insert.sql" />
+    <Build Include="Stored Procedures\Menu_Select.sql" />
+    <Build Include="Stored Procedures\Menu_SelectChild.sql" />
+    <Build Include="Stored Procedures\Menu_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\Menu_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\Menu_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Menu_SelectForLOV.sql" />
+    <Build Include="Stored Procedures\Menu_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\Menu_SelectParent.sql" />
+    <Build Include="Stored Procedures\Menu_Update.sql" />
+    <Build Include="Stored Procedures\PMS_Delete.sql" />
+    <Build Include="Stored Procedures\PMS_Insert.sql" />
+    <Build Include="Stored Procedures\pms_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\PMS_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\PMS_Update.sql" />
+    <Build Include="Stored Procedures\Role_Insert.sql" />
+    <Build Include="Stored Procedures\Role_Select.sql" />
+    <Build Include="Stored Procedures\Role_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Role_SelectForLOV.sql" />
+    <Build Include="Stored Procedures\Role_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\Role_Update.sql" />
+    <Build Include="Stored Procedures\RoleMenuAccess_Bulk.sql" />
+    <Build Include="Stored Procedures\RoleMenuAccess_Select.sql" />
+    <Build Include="Stored Procedures\RoleMenuAccess_SelectByRoleIdParentId.sql" />
+    <Build Include="Stored Procedures\User_Delete.sql" />
+    <Build Include="Stored Procedures\User_Insert.sql" />
+    <Build Include="Stored Procedures\User_Registration.sql" />
+    <Build Include="Stored Procedures\User_Select.sql" />
+    <Build Include="Stored Procedures\User_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\User_SelectForChangePassword.sql" />
+    <Build Include="Stored Procedures\User_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\User_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\User_SelectForList.sql" />
+    <Build Include="Stored Procedures\User_SelectForLOV.sql" />
+    <Build Include="Stored Procedures\User_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\User_SelectForResetPassword.sql" />
+    <Build Include="Stored Procedures\User_SelectPasswordSalt.sql" />
+    <Build Include="Stored Procedures\User_SelectValidLogin.sql" />
+    <Build Include="Stored Procedures\User_Update.sql" />
+    <Build Include="Stored Procedures\User_UpdateActive.sql" />
+    <Build Include="Stored Procedures\User_UpdatePassword.sql" />
+    <Build Include="Stored Procedures\User_UpdatePasswordDirect.sql" />
+    <Build Include="Stored Procedures\User_UpdateProfile.sql" />
+    <Build Include="Tables\Master.sql" />
+    <Build Include="Tables\MasterValue.sql" />
+    <Build Include="Tables\Menu.sql" />
+    <Build Include="Tables\PMS.sql" />
+    <Build Include="Tables\Role.sql" />
+    <Build Include="Tables\RoleMenuAccess.sql" />
+    <Build Include="Tables\User.sql" />
+    <Build Include="Tables\Property.sql" />
+    <Build Include="Stored Procedures\Property_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Property_Insert.sql" />
+    <Build Include="Stored Procedures\Property_Delete.sql" />
+    <Build Include="Stored Procedures\Property_Update.sql" />
+    <Build Include="Stored Procedures\Property_SelectForLOV.sql" />
+    <Build Include="Stored Procedures\Property_SelectForRecord.sql" />
+    <Build Include="Tables\Property.sql" />
+    <Build Include="Tables\Category.sql" />
+    <Build Include="Tables\CategoryProperty.sql" />
+    <Build Include="Tables\Product.sql" />
+    <Build Include="Stored Procedures\Product_Insert.sql" />
+    <Build Include="Stored Procedures\Product_Update.sql" />
+    <Build Include="Stored Procedures\Product_Delete.sql" />
+    <Build Include="Stored Procedures\Product_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\Product_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Category_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Category_Delete.sql" />
+    <Build Include="Stored Procedures\Category_SelectParent.sql" />
+    <Build Include="Stored Procedures\Block_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\Category_SelectChild.sql" />
+    <Build Include="Stored Procedures\Category_Insert.sql" />
+    <Build Include="Stored Procedures\Category_Update.sql" />
+    <Build Include="Tables\ProductMedia.sql" />
+    <Build Include="Tables\ProductInventory.sql" />
+    <Build Include="Stored Procedures\Category_SelectForLOV.sql" />
+    <Build Include="Stored Procedures\Category_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\Category_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\CategoryProperty_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\CategoryProperty_Delete.sql" />
+    <Build Include="Stored Procedures\CategoryProperty_Insert.sql" />
+    <Build Include="Stored Procedures\CategoryProperty_SelectForLov.sql" />
+    <Build Include="Stored Procedures\CategoryProperty_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\CategoryProperty_Update.sql" />
+    <Build Include="Stored Procedures\Product_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\Product_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\Product_SelectForList.sql" />
+    <Build Include="Stored Procedures\ProductMedia_SelectForLov.sql" />
+    <Build Include="Stored Procedures\CategoryProperty_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\CategoryProperty_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\CategoryProperty_SelectForList.sql" />
+    <Build Include="Stored Procedures\ProductProperty_SelectForGrid.sql" />
+    <Build Include="Tables\ProductProperty.sql" />
+    <Build Include="Stored Procedures\ProductProperty_SelectForGrid.sql" />
+    <Build Include="Tables\City.sql" />
+    <Build Include="Tables\State.sql" />
+    <Build Include="Tables\Country.sql" />
+    <Build Include="Tables\Vendor.sql" />
+    <Build Include="Stored Procedures\ProductProperty_Insert.sql" />
+    <Build Include="Tables\Customer.sql" />
+    <Build Include="Stored Procedures\Vendor_Insert.sql" />
+    <Build Include="Stored Procedures\Vendor_Update.sql" />
+    <Build Include="Stored Procedures\Vendor_Delete.sql" />
+    <Build Include="Stored Procedures\Vendor_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\Vendor_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Vendor_SelectForLOV.sql" />
+    <Build Include="Stored Procedures\Vendor_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\City_Delete.sql" />
+    <Build Include="Stored Procedures\City_Insert.sql" />
+    <Build Include="Stored Procedures\City_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\City_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\State_Update.sql" />
+    <Build Include="Stored Procedures\City_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\City_SelectForList.sql" />
+    <Build Include="Stored Procedures\City_SelectForLOV.sql" />
+    <Build Include="Stored Procedures\City_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\City_Update.sql" />
+    <Build Include="Stored Procedures\Country_Delete.sql" />
+    <Build Include="Stored Procedures\Country_Insert.sql" />
+    <Build Include="Stored Procedures\Country_Select.sql" />
+    <Build Include="Stored Procedures\Country_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\Country_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\Country_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Country_SelectForList.sql" />
+    <Build Include="Stored Procedures\Country_SelectForLOV.sql" />
+    <Build Include="Stored Procedures\Country_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\Country_Update.sql" />
+    <Build Include="Stored Procedures\State_Delete.sql" />
+    <Build Include="Stored Procedures\State_Insert.sql" />
+    <Build Include="Stored Procedures\State_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\State_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\State_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\State_SelectForList.sql" />
+    <Build Include="Stored Procedures\State_SelectForLOV.sql" />
+    <Build Include="Stored Procedures\State_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\Customer_SelectForGrid.sql" />
+    <Build Include="Tables\PurchaseOrder.sql" />
+    <Build Include="Stored Procedures\PurchaseOrder_Delete.sql" />
+    <Build Include="Stored Procedures\PurchaseOrder_Insert.sql" />
+    <Build Include="Stored Procedures\PurchaseOrder_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\PurchaseOrder_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\PurchaseOrder_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\PurchaseOrder_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\PurchaseOrder_Update.sql" />
+    <Build Include="Stored Procedures\PurchaseOrder_SelectForLOV.sql" />
+    <Build Include="Stored Procedures\PurchaseOrder_SelectForList.sql" />
+    <Build Include="Tables\PurchaseInvoice.sql" />
+    <Build Include="Tables\Block.sql" />
+    <Build Include="Tables\BlockProduct.sql" />
+    <Build Include="Stored Procedures\Block_Insert.sql" />
+    <Build Include="Stored Procedures\Block_Update.sql" />
+    <Build Include="Stored Procedures\Block_Delete.sql" />
+    <Build Include="Stored Procedures\Block_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\Category_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\Block_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\Vendor_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\Vendor_SelectForList.sql" />
+    <Build Include="Stored Procedures\Block_SelectForGrid.sql" />
+    <Build Include="Tables\PurchaseOrderItem.sql" />
+    <Build Include="Stored Procedures\Block_SelectForList.sql" />
+    <Build Include="Stored Procedures\Product_SelectForSyncAll.sql" />
+    <Build Include="Stored Procedures\Product_SelectForSync.sql" />
+    <Build Include="Stored Procedures\Home_SelectForBlockList.sql" />
+    <Build Include="Tables\RecentItem.sql" />
+    <Build Include="Tables\PurchaseInvoiceItem.sql" />
+    <Build Include="Stored Procedures\PurchaseInvoice_Delete.sql" />
+    <Build Include="Stored Procedures\PurchaseInvoice_Insert.sql" />
+    <Build Include="Stored Procedures\PurchaseInvoice_SelectForAdd.sql" />
+    <Build Include="Stored Procedures\PurchaseInvoice_SelectForEdit.sql" />
+    <Build Include="Stored Procedures\PurchaseInvoice_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\PurchaseInvoice_SelectForList.sql" />
+    <Build Include="Stored Procedures\PurchaseInvoice_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\PurchaseInvoice_Update.sql" />
+    <Build Include="Stored Procedures\RecentItem_Insert.sql" />
+    <Build Include="Stored Procedures\RecentItem_Update.sql" />
+    <Build Include="Stored Procedures\RecentItem_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\RecentItem_Delete.sql" />
+    <Build Include="Tables\Wishlist.sql" />
+    <Build Include="Stored Procedures\Wishlist_Insert.sql" />
+    <Build Include="Stored Procedures\Wishlist_Delete.sql" />
+    <Build Include="Stored Procedures\Wishlist_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Wishlist_CheckIfProductInWishlist.sql" />
+    <Build Include="Tables\Cart.sql" />
+    <Build Include="Tables\CategoryPropertyValue.sql" />
+    <Build Include="Stored Procedures\CategoryPropertyValue_SelectForSyncAll.sql" />
+    <Build Include="Stored Procedures\Home_SelectForCategoryList.sql" />
+    <Build Include="Stored Procedures\SearchProduct_SelectForCriteriea.sql" />
+    <Build Include="Stored Procedures\Product_SelectForDetails.sql" />
+    <Build Include="Tables\CartDiscountCoupon.sql" />
+    <Build Include="Stored Procedures\Cart_Insert.sql" />
+    <Build Include="Stored Procedures\SearchProduct_SelectForCriteriea.sql" />
+    <Build Include="Stored Procedures\Cart_Update.sql" />
+    <Build Include="Stored Procedures\Cart_Delete.sql" />
+    <Build Include="Stored Procedures\Cart_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Home_selectForBlock.sql" />
+    <Build Include="Stored Procedures\Home_selectForSlider.sql" />
+    <Build Include="Stored Procedures\ProductPage_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Review_Delete.sql" />
+    <Build Include="Stored Procedures\Review_Insert.sql" />
+    <Build Include="Stored Procedures\Review_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\Review_Update.sql" />
+    <Build Include="Tables\Review.sql" />
+    <Build Include="Tables\ReviewMedia.sql" />
+    <Build Include="Stored Procedures\Cart_InsertBulk.sql" />
+    <Build Include="Tables\Address.sql" />
+    <Build Include="Stored Procedures\Address_Insert.sql" />
+    <Build Include="Stored Procedures\Address_Update.sql" />
+    <Build Include="Stored Procedures\Address_Delete.sql" />
+    <Build Include="Stored Procedures\Address_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\Address_SelectForUser.sql" />
+    <Build Include="Security\developer.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="Stored Procedures\Wishlist_InsertBulk.sql" />
+    <Build Include="Stored Procedures\CategoryProperty_SelectByCategory.sql" />
+    <Build Include="Tables\ProductVariant.sql" />
+    <Build Include="Stored Procedures\ProductVariant_Insert.sql" />
+    <Build Include="Stored Procedures\ProductVariant_Update.sql" />
+    <Build Include="Stored Procedures\ProductVariant_Delete.sql" />
+    <Build Include="Stored Procedures\ProductVariant_SelectForRecord.sql" />
+    <Build Include="Stored Procedures\ProductVariant_SelectForGrid.sql" />
+    <Build Include="Stored Procedures\ProductProperty_SelectForSpecification.sql" />
+    <Build Include="Stored Procedures\ProductProperty_InsertInternal.sql" />
+    <Build Include="dbo\Tables\Employee.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_Update.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_SelectForRecord.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_SelectForLOV.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_SelectForList.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_SelectForGrid.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_SelectForEdit.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_SelectForAdd.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_Select.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_Delete.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="ECommerce.Sql.refactorlog" />
+    <Build Include="Stored Procedures\Product_SelectForLOV.sql" />
+  </ItemGroup>
+</Project>

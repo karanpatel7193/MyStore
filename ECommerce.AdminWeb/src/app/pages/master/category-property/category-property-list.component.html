@@ -1,0 +1,59 @@
+<div class="card tile-panel w-100">
+    <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
+        <h4 class="card-title mb-0">Category Property : {{categoryName}} </h4>
+        <div class="d-flex mt-2 mt-md-0">
+            <button type="button" class="btn btn-icon btn-tnx btn-outline-secondary" (click)="cancel()">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+            <button (click)="add()" class="btn btn-icon btn-tnx"
+                    [ngClass]="{'btn-outline-success': access.canInsert, 'btn-outline-secondary': !access.canInsert}" 
+                    title="{{access.canInsert ? 'Click here to add new record.' : 'You do not have add access to this page.'}}">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover sort">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th style="width: 100px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of categoryPropertyGrid?.categoryPropertys">
+                        <td>{{item.categoryName}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.unit}}</td>
+                        <td>
+                            <button (click)="edit(item.id)" class="btn btn-icon btn-tnx" [ngClass]="{'btn-outline-primary': access.canUpdate, 'btn-outline-secondary': !access.canUpdate}" title="{{access.canUpdate ? 'Click here to edit this category.' : 'You do not have edit access for this page.'}}"><i class="fa fa-pencil"></i></button>
+                            <button (click)="delete(item.id)" class="btn btn-icon btn-tnx" [ngClass]="{'btn-outline-danger': access.canDelete, 'btn-outline-secondary': !access.canDelete}" title="{{access.canDelete ? 'Click here to delete this category.' : 'You do not have delete access for this page.'}}"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-footer text-body-secondary">
+        <div class="float-start me-2">
+            <select [(ngModel)]="categoryPropertyParameter.pageSize" (change)="search()" class="form-select">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+            </select>
+        </div>
+        <div class="float-start total-records">Total Record(s): <strong>{{categoryPropertyGrid.totalRecords}}</strong></div>
+        <div class="float-end">
+            <ngb-pagination [collectionSize]="categoryPropertyGrid.totalRecords" [pageSize]="categoryPropertyParameter.pageSize"
+                [(page)]="categoryPropertyParameter.pageIndex" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="true" (pageChange)="search()"></ngb-pagination>
+        </div>
+    </div>
+</div>

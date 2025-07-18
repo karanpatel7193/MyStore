@@ -1,0 +1,69 @@
+<div class="modal fade" #quickViewModal tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="quickViewModalLabel">{{ product?.name }}</h5>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="carousel slide" id="productCarousel" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div *ngIf="product?.mediaThumbUrl; else noImage" class="carousel-item active">
+                    <img [src]="product.mediaThumbUrl | imageUrlPipe" class="d-block w-100" alt="Product Image">
+                  </div>
+                  <ng-template #noImage>
+                    <div class="carousel-item active">
+                      <p>no images</p>
+                    </div>
+                  </ng-template>
+                </div>
+                <div class="carousel-item">
+                  <div *ngIf="product?.mediaThumbUrl; else noImage" class="carousel-item active">
+                    <img [src]="product.mediaThumbUrl | imageUrlPipe" class="d-block w-100" alt="Product Image">
+                  </div>
+                  <ng-template #noImage>
+                    <div class="carousel-item active">
+                      <p>no images</p>
+                    </div>
+                  </ng-template>
+                </div>
+                <div class="carousel-item">
+                  <div *ngIf="product?.mediaThumbUrl; else noImage" class="carousel-item active">
+                    <img [src]="product.mediaThumbUrl | imageUrlPipe" class="d-block w-100" alt="Product Image">
+                  </div>
+                  <ng-template #noImage>
+                    <div class="carousel-item active">
+                      <p>no images</p>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h4>{{ product?.name }}</h4>
+            <p>{{ product?.price }}</p>
+            <p>{{ product?.description }}</p>
+            <button class="btn btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

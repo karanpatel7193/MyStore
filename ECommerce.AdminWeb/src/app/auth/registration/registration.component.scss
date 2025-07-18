@@ -1,0 +1,34 @@
+input.form-control {
+  height: 45px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+button.btn-success {
+  height: 45px;
+  font-weight: 600;
+}
+.register-card label {
+  text-align: left !important;
+  display: block;
+}
+.register-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+.eye-toggle-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    z-index: 2;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+

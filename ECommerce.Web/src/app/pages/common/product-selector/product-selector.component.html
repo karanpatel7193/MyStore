@@ -1,0 +1,18 @@
+<div>
+    <div class="form-group">
+      <input
+        id="product-dropdown"
+        type="text"
+        class="form-select shadow-sm"
+        [(ngModel)]="selectedProduct"
+        (ngModelChange)="onProductSelected($event)"
+        [ngbTypeahead]="search"
+        [inputFormatter]="formatter"
+        [resultFormatter]="formatter"
+        [editable]="false"
+        name="product-dropdown"
+        placeholder="Search Product..."
+      />
+    </div>
+  </div>
+  

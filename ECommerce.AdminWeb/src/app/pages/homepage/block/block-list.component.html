@@ -1,0 +1,109 @@
+<div class="card tile-panel">
+    <div class="card-header">
+        <h4 style="display: contents ;" class="card-title mb-0">Blocks</h4>
+        <button (click)="add()" class="btn btn-icon btn-tnx float-end" [ngClass]="{'btn-outline-success':access.canInsert, 'btn-outline-secondary':!access.canInsert}"  title="{{access.canInsert ? 'Click here to add new record.' : 'You do not have add access of this page.'}}"><i class="fa fa-plus"></i></button>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <form #SearchUserForm="ngForm" novalidate>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="blockName" class="form-label">Block Name</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control shadow-sm" 
+                                    [(ngModel)]="blockParameter.name" 
+                                    id="blockName" 
+                                    name="blockName" 
+                                    placeholder="Block Name" 
+                                    required 
+                                    #blockName="ngModel" 
+                                    >
+                            </div>
+                        </div>
+                        
+                        <!-- Description -->
+                        <div class="col-lg-4 col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="blockDescription" class="form-label">Description</label>
+                                <input type="text" class="form-control shadow-sm" [(ngModel)]="blockParameter.description" id="blockDescription" name="blockDescription" placeholder="Description">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <button class="btn btn-primary" (click)="search()" [ngClass]="{'btn-outline-primary':!access.canView, 'btn-outline-secondary':!access.canView}" title="{{!(!access.canView) ? 'Click here to search record.' : 'You do not have search access of this page.'}}">Search</button>
+                        <button type="button" class="btn btn-outline-secondary" (click)="reset()">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover sort mt-4">
+            <thead>
+                <tr style="cursor: pointer;">
+                    <th (click)="sort('Name')" class="sort-header text-start">
+                        Name
+                        <i class="fa" [ngClass]="{'fa-sort': (blockParameter.sortExpression != 'Name'), 'fa-sort-asc': (blockParameter.sortExpression == 'Name' && blockParameter.sortDirection === 'asc'), 'fa-sort-desc': (blockParameter.sortExpression == 'Name' && blockParameter.sortDirection == 'desc')}" aria-hidden="true"></i>
+                    </th>
+                    <th (click)="sort('Description')" class="sort-header text-start">
+                        Description
+                        <i class="fa" [ngClass]="{'fa-sort': (blockParameter.sortExpression != 'Description'), 'fa-sort-asc': (blockParameter.sortExpression == 'Description' && blockParameter.sortDirection === 'asc'), 'fa-sort-desc': (blockParameter.sortExpression == 'Description' && blockParameter.sortDirection == 'desc')}" aria-hidden="true"></i>
+                    </th>
+                    <th (click)="sort('IsActive')" class="sort-header text-start">
+                        IsActive
+                        <i class="fa" [ngClass]="{'fa-sort': (blockParameter.sortExpression != 'IsActive'), 'fa-sort-asc': (blockParameter.sortExpression == 'IsActive' && blockParameter.sortDirection === 'asc'), 'fa-sort-desc': (blockParameter.sortExpression == 'IsActive' && blockParameter.sortDirection == 'desc')}" aria-hidden="true"></i>
+                    </th>
+                    <th style="width: 100px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let block of this.blockGridModel.blocks">
+                    <td>{{ block.name }}</td>
+                    <td>{{ block.description }}</td>
+                    <td>{{ block.isActive }}</td>
+                    <td>
+                        <button 
+                            (click)="edit(block.id)" 
+                            class="btn btn-icon btn-tnx" 
+                            [ngClass]="{'btn-outline-primary': access.canUpdate, 'btn-outline-secondary': !access.canUpdate}" 
+                            title="{{access.canUpdate ? 'Click here to edit this block.' : 'You do not have edit access for this page.'}}">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button 
+                            (click)="delete(block.id)" 
+                            class="btn btn-icon btn-tnx" 
+                            [ngClass]="{'btn-outline-danger': access.canDelete, 'btn-outline-secondary': !access.canDelete}" 
+                            title="{{access.canDelete ? 'Click here to delete this block.' : 'You do not have delete access for this page.'}}">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-footer text-body-secondary">
+        <div class="float-start card-header-controls">
+            <select [(ngModel)]="blockParameter.pageSize" (change)="search()" class="form-select">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+            </select>
+        </div>
+        <div class="float-start total-records">Total Record(s) <strong>{{this.blockGridModel.totalRecords}}</strong></div>
+        <div class="float-end">
+            <ngb-pagination [collectionSize]="this.blockGridModel.totalRecords" [pageSize]="blockParameter.pageSize"
+                [(page)]="blockParameter.pageIndex" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="true" (pageChange)="search()"></ngb-pagination>
+        </div>
+    </div>
+</div>

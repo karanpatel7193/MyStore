@@ -1,0 +1,60 @@
+<section class="py-5 bg-color">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="mb-8">
+                    <h1 class="mb-1">My Wishlist</h1>
+                    <p>There are {{ wishlist.totalRecords }} products in this wishlist.</p>
+                </div>
+            </div>
+            <div>
+                <div class="table-responsive table-card">
+                    <table class="table text-nowrap table-centered mt-0" style="width: 100%;">
+                        <thead class="bg-light">
+                            <tr>
+                                <th></th>
+                                <th>Product</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of wishlist.wishlists">
+                                <td>
+                                    <a [routerLink]="['/shop', product.id]">
+                                        <img [src]="getProductImageUrl(product)" alt="{{ product.name }}"
+                                            class="mb-3 img-fluid">
+                                    </a>
+                                </td>
+                                <td>
+                                    <div>
+                                        <h5 class="fs-6 mb-0">
+                                            <a class="text-inherit" [routerLink]="['/product-details', product.id]">{{ product.name }}</a>
+                                        </h5>
+                                    </div>
+                                </td>
+                                <td>${{ product.finalSellPrice }}</td>
+                                <td>
+                                    <span class="custom-badge"
+                                        [ngClass]="{'bg-success': product.isExpiry, 'bg-danger': !product.isExpiry}">
+                                        {{ product.isExpiry ? 'In Stock' : 'Out of Stock' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm">Add to cart</button>
+                                </td>
+                                <td>
+                                    <button (click)="removeFromWishlist(product.id)">
+                                        <i class="bi bi-trash"></i> Remove
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

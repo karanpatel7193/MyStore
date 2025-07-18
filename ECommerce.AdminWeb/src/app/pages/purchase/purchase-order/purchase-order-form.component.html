@@ -1,0 +1,183 @@
+<div class="card tile-panel">
+    <div class="col-lg-12 col-md-10">
+        <form #purchaseOrderForm="ngForm" novalidate>
+            <div class="rounded">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">{{ mode }} Purchase Order</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-2 mb-1 me-2">
+                            <div class="form-group mb-1">
+                                <label for="orderNumber">Order Number</label>
+                                <div class="input-group mt-2">
+                                    <input type="text" class="form-control shadow-sm"
+                                        [(ngModel)]="purchaseOrder.orderNumber" id="orderNumber" name="orderNumber"
+                                        placeholder="Order Number" required #inOrderNumber="ngModel" />
+                                    <div class="invalid-feedback"
+                                        *ngIf="(purchaseOrderForm.submitted && inOrderNumber.invalid) || (inOrderNumber.dirty && inOrderNumber.invalid) || (inOrderNumber.touched && inOrderNumber.invalid)">
+                                        Order Number is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-1 me-2">
+                            <div class="form-group">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="date" [disabled]="mode === 'Edit'" class="form-control shadow-sm"
+                                    [ngModel]="purchaseOrder.createdOn| date:'yyyy-MM-dd'"
+                                    (ngModelChange)="purchaseOrder.createdOn= $event" id="date" name="date" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 mb-1">
+                            <div class="form-group mb-1">
+                                <label for="invendorId" class="form-label">Vendor Name</label>
+                                <div class="input-group ">
+                                    <select class="form-select shadow-sm" [(ngModel)]="purchaseOrder.vendorId"
+                                        id="invendorId" name="invendorId" required>
+                                        <option value="0">Select Vendor</option>
+                                        <option *ngFor="let vendor of vendors" [value]="vendor.id">{{ vendor.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-1">
+                            <div class="form-group mb-3">
+                                <label for="inDescription" class="form-label">Description</label>
+                                <textarea class="form-control" [(ngModel)]="purchaseOrder.description"
+                                    id="inDescription" name="inDescription"
+                                    placeholder="Enter product description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <button class="btn btn-icon btn-tnx float-end mb-3"
+                            [ngClass]="{'btn-outline-success': access.canInsert, 'btn-outline-secondary': !access.canInsert}"
+                            title="{{ access.canInsert ? 'Click here to add new record.' : 'You do not have add access of this page.' }}"
+                            (click)="addRow()">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <!-- Grid Section for Product, Quantity, Price, Discount, Tax, Final Amount -->
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th class="text-end">Quantity</th>
+                                <th class="text-end">Price</th>
+                                <th class="text-end">Amount</th>
+                                <th class="text-end">Discount</th>
+                                <th class="text-end">Tax</th>
+                                <th class="text-end">Final Amount</th>
+                                <th style="width: 50px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of purchaseOrder.purchaseOrderItem; let i = index">
+                                <td>
+                                    <ng-container *ngIf="mode === 'Edit'; else productSelector">
+                                        <input id="product-name-{{ i }}" type="text" class="form-control"
+                                            [value]="item.productName" disabled />
+                                    </ng-container>
+                                    <ng-template #productSelector>
+                                        <app-product-selector [(ngModel)]="item.productName" [id]="'productId_' + i"
+                                            [name]="'productId_' + i"
+                                            (productSelected)="onProductSelected($event, item)">
+                                        </app-product-selector>
+                                    </ng-template>
+                                </td>
+
+                                <td>
+                                    <input type="number" class="form-control shadow-sm text-end"
+                                        [(ngModel)]="item.quantity" [id]="'quantity_' + i" [name]="'quantity_' + i"
+                                        placeholder="Quantity" required
+                                        (ngModelChange)="calculateRowAmount(item)" /><br>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control shadow-sm text-end"
+                                        [(ngModel)]="item.price" [id]="'price_' + i" [name]="'price_' + i"
+                                        placeholder="Price" required (ngModelChange)="calculateRowAmount(item)"
+                                        disabled />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control shadow-sm text-end"
+                                        [(ngModel)]="item.amount" [id]="'amount' + i" [name]="'amount' + i"
+                                        placeholder="Amount" disabled />
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="btn-group me-2">
+                                            <button class="btn btn-outline-primary"
+                                                [ngClass]="{'active': item.discountType === 'amount'}"
+                                                (click)="setDiscountType(item, 'amount')">₹</button>
+                                            <button class="btn btn-outline-primary"
+                                                [ngClass]="{'active': item.discountType === 'percentage'}"
+                                                (click)="setDiscountType(item, 'percentage')">%</button>
+                                        </div>
+                                        <input type="number" class="form-control shadow-sm text-end"
+                                            [(ngModel)]="item.discountedAmount" [id]="'discount_' + i"
+                                            [name]="'discount_' + i" [placeholder]="discountLabel" required
+                                            (ngModelChange)="calculateRowAmount(item)" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="btn-group me-2">
+                                            <button class="btn btn-outline-primary"
+                                                [ngClass]="{'active': item.taxDiscountType === 'amount'}"
+                                                (click)="setTaxDiscountType(item, 'amount')">₹</button>
+                                            <button class="btn btn-outline-primary"
+                                                [ngClass]="{'active': item.taxDiscountType === 'percentage'}"
+                                                (click)="setTaxDiscountType(item, 'percentage')">%</button>
+                                        </div>
+                                        <input type="number" class="form-control shadow-sm text-end"
+                                            [(ngModel)]="item.tax" id="taxDiscount{{i}}" name="taxDiscount"
+                                            [placeholder]="taxDiscountLabel" required
+                                            (ngModelChange)="calculateRowAmount(item)" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control shadow-sm text-end"
+                                        [(ngModel)]="item.finalAmount" [id]="'finalAmount' + i"
+                                        [name]="'finalAmount' + i" placeholder="Final Amount" disabled />
+                                </td>
+                                <td>
+                                    <button class="btn btn-icon btn-outline-danger" title="Delete this row"
+                                        (click)="deleteRow(i)"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1"><strong>Total</strong></td>
+                                <td class="text-end"><strong>{{ getTotalSums().totalQuantity | number:
+                                        '1.2-2'}}</strong></td>
+                                <td colspan="2" class="text-end"><strong>{{ getTotalSums().totalAmount | number:
+                                        '1.2-2'}}</strong></td>
+                                <td class="text-end"><strong>{{ getTotalSums().totalDiscount | number:
+                                        '1.2-2'}}</strong></td>
+                                <td class="text-end"><strong>{{ getTotalSums().totalTax | number: '1.2-2' }}</strong>
+                                </td>
+                                <td class="text-end"><strong>{{ getTotalSums().totalFinalAmount | number:
+                                        '1.2-2'}}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <!-- worlling -->
+                <div class="card-footer d-flex">
+                    <button class="btn btn-primary" (click)="save(purchaseOrderForm.valid)"
+                        [disabled]="!purchaseOrderForm.valid" title="Click here to submit this record.">
+                        Save
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

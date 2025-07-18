@@ -1,0 +1,22 @@
+  import { HttpClient } from '@angular/common/http';
+  import { Injectable } from '@angular/core';
+  import { Observable } from 'rxjs';
+  import { BlockModel } from '../home/block/block.model';
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class BannerService {
+
+    constructor(private http: HttpClient) { }
+    private apiUrl = 'https://localhost:7143/client/home';  
+
+    public getForBlock(): Observable<BlockModel>{
+      return this.http.post<BlockModel>(`${this.apiUrl}/getBlock`, {});
+    }
+
+    public getForSlider(): Observable<BlockModel[]> {
+      return this.http.post<BlockModel[]>(`${this.apiUrl}/getSlider`, {});
+    }
+
+}

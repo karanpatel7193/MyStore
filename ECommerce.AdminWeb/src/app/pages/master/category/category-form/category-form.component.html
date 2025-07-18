@@ -1,0 +1,97 @@
+<div class="card tile-panel">
+    <div class="col-lg-12 col-md-10">
+        <form #categoryModelForm="ngForm" novalidate>
+            <div class="rounded">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">{{ mode }} Category</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <!-- Left Column: Form Inputs -->
+                        <div class="col-md-6 mb-3">
+                            <!-- Category Name -->
+                            <div class="form-group">
+                                <label for="inName" class="form-label">Name</label>
+                                <input type="text" class="form-control shadow-sm mb-2" [(ngModel)]="categoryModel.name"
+                                    id="inName" name="inName" placeholder="Category Name" required #inName="ngModel"
+                                    [ngClass]="{'form-control-danger':((categoryModelForm.submitted || inName.dirty || inName.touched) && (inName.invalid))}">
+                                <div class="invalid-feedback"
+                                    *ngIf="(categoryModelForm.submitted && inName.invalid) || (inName.dirty && inName.invalid) || (inName.touched && inName.invalid)">
+                                    Name is required.
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="form-group">
+                                <label for="inDescription" class="form-label">Description</label>
+                                <input type="text" class="form-control shadow-sm mb-2"
+                                    [(ngModel)]="categoryModel.description" id="inDescription" name="inDescription"
+                                    placeholder="Description" #inDescription="ngModel"
+                                    [ngClass]="{'form-control-danger':((categoryModelForm.submitted || inDescription.dirty || inDescription.touched) && (inDescription.invalid))}">
+                                <div class="invalid-feedback"
+                                    *ngIf="(categoryModelForm.submitted && inDescription.invalid) || (inDescription.dirty && inDescription.invalid) || (inDescription.touched && inDescription.invalid)">
+                                    Total Products is required.
+                                </div>
+                            </div>
+
+                            <!-- Parent Category -->
+                            <div class="form-group">
+                                <label for="inParentId" class="form-label">Parent Category</label>
+                                <select class="form-select mb-2 shadow-sm" required [(ngModel)]="categoryModel.parentId"
+                                    id="inParentId" name="inParentId" #inParentId="ngModel"
+                                    [ngClass]="{'form-control-danger':((categoryModelForm.submitted || inParentId.invalid) && (inParentId.dirty || inParentId.touched))}">
+                                    <option value="0">Select Category</option>
+                                    <option *ngFor="let parent of parentCategories" [value]="parent.id">
+                                        {{ parent.name }}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback"
+                                    *ngIf="(categoryModelForm.submitted && inParentId.invalid) || (inParentId.dirty && inParentId.invalid) || (inParentId.touched && inParentId.invalid)">
+                                    Parent Category is required.
+                                </div>
+                            </div>
+
+                            <!-- IsVisible Checkbox -->
+                            <div class="form-group">
+                                <label class="form-label custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input me-2 shadow-sm"
+                                        style="padding: 10px;" name="isVisible" [(ngModel)]="categoryModel.isVisible">
+                                    <span class="custom-control-indicator"></span>
+                                    <span class="custom-control-description">IsVisible</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="inFile" class="form-label">Category Image</label>
+                                <div class="category-img-wrap">
+                                    <img class="col-md-6 category-image"
+                                        [src]="categoryModel.file.content || './assets/images/Avatar-1.png'"
+                                        onerror="this.src='./assets/images/Avatar-1.png'" width="125px" height="125px"
+                                        alt="category pic" class="img-round mb-2" />
+                                    <div class="col-md-6">
+                                        <span *ngIf="categoryModel.file?.name">{{ categoryModel.file.name }}</span>
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <app-file-upload [selectedFile]="categoryModel.file.name"
+                                            (onFileSelected)="fileUpload($event)" id="inFile" name="inFile"
+                                            aria-activedescendant="">
+                                        </app-file-upload>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer d-flex">
+                        <button class="btn btn-primary" (click)="save(categoryModelForm.valid ?? false)"
+                            title="Save">Save</button>
+                        <button type="button" routerLink="/app/products/category/list" class="btn btn-outline-secondary"
+                            (click)="cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

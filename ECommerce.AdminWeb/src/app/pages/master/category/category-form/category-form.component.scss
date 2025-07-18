@@ -1,0 +1,30 @@
+.category-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; /* Make the image fit within the bounds */
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+// .app-file-upload {
+//     /* Custom styles for the file upload button */
+//     border: 1px solid #ddd;
+//     border-radius: 4px;
+//     background-color: #f8f9fa;
+//     padding: 5px;
+//     display: flex;
+//     align-items: center;
+// }
+
+// .app-file-upload .file-upload-label {
+//     padding: 5px 12px;
+//     background-color: #007bff;
+//     color: white;
+//     border-radius: 4px;
+//     cursor: pointer;
+// }
+
+// /* File upload label hover effect */
+// .app-file-upload .file-upload-label:hover {
+//     background-color: #0056b3;
+// }

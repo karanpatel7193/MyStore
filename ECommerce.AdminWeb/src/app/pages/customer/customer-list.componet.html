@@ -1,0 +1,80 @@
+<div class="card tile-panel">
+    <div class="card-header">
+        <h4 style="display: contents;" class="card-title mb-0">Customer List</h4>
+        <div class="input-group float-end header-button" style="width:250px;">
+            <input type="text" class="form-control shadow-sm" [(ngModel)]="customerParameter.name" placeholder="Search here..." />
+            <button (click)="search()" class="btn btn-icon btn-tnx btn-outline-secondary">
+                <i class="fa fa-search"></i></button>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-bordered table-hover sort">
+            <thead style="cursor: pointer;">
+                <tr>
+                    <th (click)="sort('Id')" class="sort-header">
+                        Id
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (customerParameter.sortExpression != 'Id'), 'fa-sort-asc': (customerParameter.sortExpression == 'Id' && customerParameter.sortDirection === 'asc'), 'fa-sort-desc': (customerParameter.sortExpression == 'Id' && customerParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('Name')" class="sort-header">
+                        Name
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (customerParameter.sortExpression != 'Name'), 'fa-sort-asc': (customerParameter.sortExpression == 'Name' && customerParameter.sortDirection === 'asc'), 'fa-sort-desc': (customerParameter.sortExpression == 'Name' && customerParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('TotalBuy')" class="sort-header">
+                        TotalBuy
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (customerParameter.sortExpression != 'Name'), 'fa-sort-asc': (customerParameter.sortExpression == 'Name' && customerParameter.sortDirection === 'asc'), 'fa-sort-desc': (customerParameter.sortExpression == 'Name' && customerParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+                    <th (click)="sort('TotalInvoices')" class="sort-header">
+                        TotalInvoices
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (customerParameter.sortExpression != 'Name'), 'fa-sort-asc': (customerParameter.sortExpression == 'Name' && customerParameter.sortDirection === 'asc'), 'fa-sort-desc': (customerParameter.sortExpression == 'Name' && customerParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('Status')" class="sort-header">
+                        Status
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (customerParameter.sortExpression != 'Status'), 'fa-sort-asc': (customerParameter.sortExpression == 'Status' && customerParameter.sortDirection === 'asc'), 'fa-sort-desc': (customerParameter.sortExpression == 'Status' && customerParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <!-- <th style="width:150px;">Actions</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of customerGrid?.customers;">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.totalBuy}}</td>
+                    <td>{{item.totalInvoices}}</td>
+                    <td>{{item.status}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-body-secondary">
+        <div class="float-start card-header-controls">
+            <select [(ngModel)]="customerParameter.pageSize" (change)="search()" class="form-select">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+            </select>
+        </div>
+        <div class="float-start total-records">Total Record(s) <strong>{{customerGrid.totalRecords}}</strong></div>
+        <div class="float-end">
+            <ngb-pagination [collectionSize]="customerGrid.totalRecords" [pageSize]="customerParameter.pageSize"
+                [(page)]="customerParameter.pageIndex" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="true" (pageChange)="search()"></ngb-pagination>
+        </div>
+    </div>
+</div>

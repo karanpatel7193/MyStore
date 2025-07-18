@@ -1,0 +1,13 @@
+.account-container {
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    .account-content {
+      flex: 1;
+      padding-left: 20px;
+      background: #fff;
+      min-height: 500px;
+    }
+  }
+  

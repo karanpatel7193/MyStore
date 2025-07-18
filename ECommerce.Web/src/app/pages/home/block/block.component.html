@@ -1,0 +1,52 @@
+<div *ngFor="let block of blocks" class="block-container mt-5 bg-color">
+  <div class="container">
+    <div class="block-header text-center">
+      <h3>{{ block.name }}</h3>
+      <p>{{ block.description }}</p>
+    </div>
+
+    <div id="carousel-{{block.id}}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+      <div class="carousel-inner">
+        <div *ngFor="let productChunk of chunkProducts(getProductsForBlock(block.id), getChunkSize()); let i = index"
+          class="carousel-item" [class.active]="i === 0">
+          <div class="row justify-content-center">
+            <div *ngFor="let product of productChunk" class="col-6 col-sm-4 col-md-3 col-lg-3 mb-3 ml-2">
+              <div class="product-card shadow-sm p-2 rounded">
+                <a [routerLink]="['/product-details', product.productId]">
+                  <div class="product-image">
+                    <img [src]="product.thumbUrl | imageUrlPipe" [alt]="product.productName" class="img-fluid rounded">
+                  </div>
+                  <div class="product-info text-center mt-2">
+                    <h6 class="fw-bold">{{ product.productName }}</h6>
+                    <p class="text-muted">From ₹{{ product.finalSellPrice }}</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carousel-' + block.id"
+        data-bs-slide="prev">
+        <span class="custom-prev-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </span>
+      </button>
+
+      <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carousel-' + block.id"
+        data-bs-slide="next">
+        <span class="custom-next-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

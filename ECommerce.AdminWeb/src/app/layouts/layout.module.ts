@@ -1,0 +1,35 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+
+import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
+import { AppLayoutComponent } from './app-layout/app-layout.component';
+import { HeaderComponent } from '../components/header/header.component';
+import { SidebarComponent } from '../components/sidebar/sidebar.component';
+import { FormsModule } from '@angular/forms';
+import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChangePasswordComponent } from '../auth/changePassword/change-password.component';
+import { ProfileComponent } from '../auth/profile/profile.component';
+
+const routes: Routes = [];
+
+@NgModule({
+  declarations: [
+    AuthLayoutComponent,
+    AppLayoutComponent,
+    HeaderComponent,
+    SidebarComponent,
+    ChangePasswordComponent,
+    ProfileComponent
+    
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    FormsModule,
+    NgbModule,
+    NgbTypeaheadModule
+],
+  exports: []
+})
+export class LayoutModule { }

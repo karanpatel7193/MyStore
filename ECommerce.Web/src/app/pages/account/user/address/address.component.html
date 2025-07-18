@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Manage Addresses</h5>
+          <button class="btn btn-primary btn-sm" (click)="navigateToAddressForm()">Add New Address</button>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <ng-container *ngIf="addresses.length > 0; else noData">
+              <div class="col-12 mb-3" *ngFor="let address of addresses">
+                <div class="card shadow-sm">
+                  <div class="card-body">
+                    <span class="badge bg-secondary">{{address.addressType}}</span>
+                    <h6 class="card-title">{{ address.fullName }}</h6>
+                    <p class="card-text">
+                      {{ address.addressLine }}, {{ address.landmark }}<br>
+                      {{ address.cityName }}, {{ address.stateName }} - {{ address.pinCode }}
+                    </p>
+                    <p class="card-text"><strong>Mobile:</strong> {{ address.mobileNumber }}</p>
+                    <div class="d-flex justify-content-between">
+                      <button class="btn btn-outline-secondary btn-sm" (click)="navigateToAddressForm(address.id)">Edit</button>
+                      <button class="btn btn-outline-danger btn-sm" (click)="deleteAddress(address.id)">Remove</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #noData>
+              <p class="text-center">No addresses found.</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

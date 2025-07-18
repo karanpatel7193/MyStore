@@ -1,0 +1,40 @@
+<section class="py-4 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card shadow-sm p-3">
+            <h2 class="mb-3">My Orders ({{ ordersGrid.totalRecords }})</h2>
+  
+            <div *ngIf="orderItems.length === 0" class="text-center p-4">
+              <img src="/assets/images/no-orders.png" alt="No Orders" class="mb-3" style="width: 180px;">
+              <p>You have no orders yet! Start shopping now.</p>
+              <a routerLink="/shop" class="btn btn-primary">Shop Now</a>
+            </div>
+  
+            <div *ngFor="let order of orderItems" class="order-item border-bottom d-flex p-3 align-items-center">
+              <div class="order-img me-3">
+                <a [routerLink]="['/order-details', order.orderId]">
+                  <img [src]="getOrderImageUrl(order)" alt="{{ order.productName }}" class="rounded" style="width: 110px; height: 110px;">
+                </a>
+              </div>
+  
+              <div class="order-info flex-grow-1">
+                <h5 class="mb-1">
+                  <a class="text-dark text-decoration-none" [routerLink]="['/order-details', order.orderId]">Order #{{ order.orderId }}</a>
+                </h5>
+                <p class="text-muted small">Placed on: {{ order.orderDate | date:'medium' }}</p>
+                <p class="text-muted small">Status: <strong>{{ order.status }}</strong></p>
+              </div>
+  
+              <div class="order-price text-end">
+                <p class="mb-1"><strong>₹{{ order.totalPrice }}</strong></p>
+                <p class="text-success small">Items: {{ order.totalItems }}</p>
+                <a class="btn btn-outline-primary btn-sm" [routerLink]="['/order-details', order.orderId]">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

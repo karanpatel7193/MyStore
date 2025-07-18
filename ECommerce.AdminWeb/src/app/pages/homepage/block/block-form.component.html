@@ -1,0 +1,83 @@
+<div class="card tile-panel">
+    <!-- Form Section -->
+    <div class="card-header">
+        <h4 style="display: contents;" class="card-title mb-0">Blocks</h4>
+    </div>
+    <div class="card-body">
+        <form #BlockForm="ngForm" novalidate>
+            <div class="row">
+                <!-- Block Name -->
+                <div class="col-lg-4 col-md-4">
+                    <div class="form-group mb-2">
+                        <label for="blockName" class="form-label">Block Name</label>
+                        <input 
+                            type="text" 
+                            class="form-control shadow-sm" 
+                            [(ngModel)]="blockModel.name" 
+                            id="blockName" 
+                            name="blockName" 
+                            placeholder="Block Name" 
+                            required 
+                            #blockName="ngModel" 
+                            >
+                    </div>
+                </div>
+                
+                <!-- Description -->
+                <div class="col-lg-4 col-md-4">
+                    <div class="form-group mb-2">
+                        <label for="blockDescription" class="form-label">Description</label>
+                        <input type="text" class="form-control shadow-sm" [(ngModel)]="blockModel.description" id="blockDescription" name="blockDescription" placeholder="Description">
+                    </div>
+                </div>
+                <!-- isActive -->
+                <div class="col-md-4 mt-3 ">
+                    <div class="form-group mt-2">
+                        <label class="form-label ">
+                            <input class="custom-control-input me-1" type="checkbox" name="inIsActive"
+                                id="inIsActive" [(ngModel)]="blockModel.isActive">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description ">Is Active</span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Product Dropdown -->
+                <div class="col-md-6">
+                    <label for="productName" class="form-label mt-2">Product</label>
+                    <app-product-selector #productSelector (productSelected)="onProductSelected($event, productSelector)"></app-product-selector>
+
+                    <div *ngIf="blockModel.blockProducts.length > 0" class="mt-3">
+                        <h5>Selected Products:</h5>
+                        <ul class="list-group">
+                            <li
+                                class="list-group-item d-flex justify-content-between align-items-center"
+                                *ngFor="let product of blockModel.blockProducts; let i = index">
+                                <h6>{{ product.productName }}</h6>
+                                <button
+                                    type="button"
+                                    class="btn-outline-danger btn-sm"
+                                    (click)="removeProduct(i)">
+                                    −
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <div class="form-group mt-3">
+                        <label for="inBlockContent"class="form-label mb-2">Content</label>
+                        <!-- <angular-editor [editor]= "editorConfig"  [(ngModel)]="blockModel.content" [placeholder]="'Type Content here...'" name="inBlockContent" id="inBlockContent"></angular-editor> -->
+
+                        <textarea class="form-control" [(ngModel)]="blockModel.content" id="inBlockContent"
+                        name="inBlockContent" placeholder="Enter Block Content"></textarea>
+                    </div>
+                </div>
+            </div>  
+            <div class="mt-3 d-flex">
+                <button class="btn btn-primary" (click)="save(BlockForm.valid ?? false)" [ngClass]="{'btn-outline-primary':!access.canInsert && !access.canUpdate, 'btn-outline-secondary':!access.canInsert && !access.canUpdate}" title="{{!(!access.canInsert && !access.canUpdate) ? 'Click here to submitthis record.' : 'You do not have add or edit access of this page.'}}">Submit</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

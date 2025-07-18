@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[Vendor] (
+    [Id]                            INT IDENTITY(1,1)   NOT NULL,
+    [Name]                          VARCHAR(100)        NOT NULL,
+    [Email]                         VARCHAR(100)        NOT NULL,
+    [Phone]                         BIGINT              NOT NULL,
+    [Address]                       VARCHAR(255)        NOT NULL,
+    [CountryId]                     SMALLINT            NOT NULL,
+    [StateId]                       INT                 NOT NULL,
+    [PostalCode]                    VARCHAR(10)         NOT NULL,
+    [BankAccountNumber]             VARCHAR(50)         NULL,
+    [BankName]                      VARCHAR(100)        NULL,
+    [IFSCCode]                      VARCHAR(20)         NULL,
+    [ContactPersonName]             VARCHAR(100)        NULL,
+    [ContactPersonPhone]            VARCHAR(15)         NULL,
+    [CreatedOn]                     DATETIME ,
+    [TaxNumber]                     VARCHAR(50)         NULL,
+    [TotalOutstanding]              DECIMAL             NULL,
+    [TotalPaid]                     DECIMAL             NULL,
+    [TotalInvoices]                 DECIMAL             NULL,
+    [Status]                        BIT                 NOT NULL ,
+    
+    CONSTRAINT          [PK_Vendor]                 PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT          [FK_Vendor_State]           FOREIGN KEY ([StateId])         REFERENCES [dbo].[State] ([Id]),
+    CONSTRAINT          [FK_Vendor_Country]         FOREIGN KEY ([CountryId])       REFERENCES [dbo].[Country] ([Id])
+)

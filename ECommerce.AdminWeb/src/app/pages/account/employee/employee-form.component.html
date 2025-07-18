@@ -1,0 +1,146 @@
+<div class="card tile-panel">
+  <div class="col-lg-12">
+    <form #employeeForm="ngForm" novalidate>
+      <div class="rounded">
+        <div class="card-header">
+          <h4 class="card-title">{{mode}} Employee</h4>
+        </div>
+
+        <div class="card-body">
+          <div class="row g-3">
+            <!-- First Name -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inFirstName" class="form-label">First Name</label>
+                <input type="text" class="form-control shadow-sm mb-2" [(ngModel)]="employee.firstName" id="inFirstName" name="inFirstName" placeholder="First Name" required
+                  [ngClass]="{'form-control-danger': (employeeForm.submitted || inFirstName.dirty || inFirstName.touched) && inFirstName.invalid}" #inFirstName="ngModel" />
+                <div class="invalid-feedback" *ngIf="(employeeForm.submitted && inFirstName.invalid) || (inFirstName.dirty && inFirstName.invalid) || (inFirstName.touched && inFirstName.invalid)">
+                  First Name is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Middle Name -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inMiddleName" class="form-label">Middle Name</label>
+                <input type="text" class="form-control shadow-sm mb-2" [(ngModel)]="employee.middleName" id="inMiddleName" name="inMiddleName" placeholder="Middle Name" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <!-- Last Name -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control shadow-sm mb-2" [(ngModel)]="employee.lastName" id="inLastName" name="inLastName" placeholder="Last Name" required
+                  [ngClass]="{'form-control-danger': (employeeForm.submitted || inLastName.dirty || inLastName.touched) && inLastName.invalid}" #inLastName="ngModel" />
+                <div class="invalid-feedback" *ngIf="(employeeForm.submitted && inLastName.invalid) || (inLastName.dirty && inLastName.invalid) || (inLastName.touched && inLastName.invalid)">
+                  Last Name is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inGender" class="form-label">Gender</label>
+                <input type="text" class="form-control shadow-sm mb-2" [(ngModel)]="employee.gender" id="inGender" name="inGender" placeholder="Gender" required
+                  [ngClass]="{'form-control-danger': (employeeForm.submitted || inGender.dirty || inGender.touched) && inGender.invalid}" #inGender="ngModel" />
+                <div class="invalid-feedback" *ngIf="(employeeForm.submitted && inGender.invalid) || (inGender.dirty && inGender.invalid) || (inGender.touched && inGender.invalid)">
+                  Gender is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inEmail" class="form-label">Email</label>
+            <input type="email" class="form-control shadow-sm mb-2" [(ngModel)]="employee.email" id="inEmail" name="inEmail" placeholder="Email" required
+              [ngClass]="{'form-control-danger': (employeeForm.submitted || inEmail.dirty || inEmail.touched) && inEmail.invalid}" #inEmail="ngModel" />
+            <div class="invalid-feedback" *ngIf="(employeeForm.submitted && inEmail.invalid) || (inEmail.dirty && inEmail.invalid) || (inEmail.touched && inEmail.invalid)">
+              Email is required.
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <!-- Phone -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inPhoneNumber" class="form-label">Phone Number</label>
+                <input type="text" class="form-control shadow-sm mb-2" [(ngModel)]="employee.phoneNumber" id="inPhoneNumber" name="inPhoneNumber" placeholder="Phone Number" />
+              </div>
+            </div>
+
+            <!-- DOB -->
+            <div class="col-md-6">
+                <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                <input type="date" [ngModel]="employee.dob | date:'yyyy-MM-dd'" (ngModelChange)="employee.dob =$event" class="form-control" name="dateOfBirth" id="dateOfBirth">
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <!-- Date Of Join -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inDateOfJoin" class="form-label">Date Of Join</label>
+                <input type="date" [ngModel]="employee.dateOfJoin | date:'yyyy-MM-dd'" (ngModelChange)="employee.dateOfJoin =$event" class="form-control" name="inDateOfJoin" id="inDateOfJoin" [ngClass]="{'form-control-danger': (employeeForm.submitted || inDateOfJoin.dirty || inDateOfJoin.touched) && inDateOfJoin.invalid}" #inDateOfJoin="ngModel">
+                <!-- <input type="date" class="form-control shadow-sm mb-2" [(ngModel)]="employee.dateOfJoin" id="inDateOfJoin" name="inDateOfJoin" required
+                  [ngClass]="{'form-control-danger': (employeeForm.submitted || inDateOfJoin.dirty || inDateOfJoin.touched) && inDateOfJoin.invalid}" #inDateOfJoin="ngModel" /> -->
+                <div class="invalid-feedback" *ngIf="(employeeForm.submitted && inDateOfJoin.invalid) || (inDateOfJoin.dirty && inDateOfJoin.invalid) || (inDateOfJoin.touched && inDateOfJoin.invalid)">
+                  Date Of Join is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Education -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inEducation" class="form-label">Education</label>
+                <input type="text" class="form-control shadow-sm mb-2" [(ngModel)]="employee.education" id="inEducation" name="inEducation" placeholder="Education" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <!-- City -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="inCityId" class="form-label">City</label>
+                <select class="form-select mb-2" [(ngModel)]="employee.cityId" id="inCityId" name="inCityId">
+                  <option [value]="item.id" *ngFor="let item of citys">{{ item.name }}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- State -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="inStateId" class="form-label">State</label>
+                <select class="form-select mb-2" [(ngModel)]="employee.stateId" id="inStateId" name="inStateId">
+                  <option [value]="item.id" *ngFor="let item of states">{{ item.name }}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Country -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="inCountryId" class="form-label">Country</label>
+                <select class="form-select mb-2" [(ngModel)]="employee.countryId" id="inCountryId" name="inCountryId">
+                  <option [value]="item.id" *ngFor="let item of countrys">{{ item.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer d-flex">
+          <button class="btn btn-primary" (click)="save(employeeForm.valid ?? false)">Save</button>
+          <button type="button" class="btn btn-outline-secondary ms-2" (click)="cancel()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

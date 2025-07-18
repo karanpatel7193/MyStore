@@ -1,0 +1,22 @@
+    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1000">
+        <div class="carousel-inner">
+            <div *ngFor="let banner of banners; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">
+                <!-- Make the banner a clickable link -->
+                <a [routerLink]="['/product']" class="text-decoration-none">
+                    <div class="banner-slide">
+                        <div class="carousel-content">
+                            <div [innerHTML]="banner.content"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>

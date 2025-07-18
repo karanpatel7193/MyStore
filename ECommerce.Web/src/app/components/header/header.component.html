@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">Ecommerce</a>
+
+        <div class="input-group w-50">
+            <input type="text" class="form-control" placeholder="Search for products, brands and more">
+            <button class="btn btn-light" type="button"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="dropdown me-3" (mouseenter)="isDropdownOpen = true" (mouseleave)="isDropdownOpen = false">
+                <button *ngIf="!isUserLoggedIn" class="btn btn-light dropdown-toggle" id="loginDropdown"
+                    (click)="isDropdownOpen = !isDropdownOpen">
+                    Login
+                </button>
+                <button *ngIf="isUserLoggedIn" class="btn btn-light" routerLink="/account/profile">
+                    <i class="bi bi-person-circle"></i> My Account
+                </button>
+
+                <ul class="dropdown-menu" [class.show]="isDropdownOpen" aria-labelledby="loginDropdown">
+                    <li class="p-2"><strong>New Customer?</strong> <a routerLink="/login"
+                            class="text-primary fw-bold ms-2">Sign Up</a></li>
+                    <li><a *ngIf="isUserLoggedIn" class="dropdown-item" routerLink="/account/profile">Account</a></li>
+                    <li><a class="dropdown-item" routerLink="/">Order</a></li>
+                    <li><a class="dropdown-item" routerLink="/cart">Cart</a></li>
+                    <li><a class="dropdown-item" routerLink="/wishList">Wishlist</a></li>
+                </ul>
+            </div>
+
+            <a routerLink="/cart" class="btn btn-light me-3 position-relative">
+                <i class="fas fa-shopping-cart"></i>
+                <span *ngIf="wishlistCount" class="position-absolute top-0 start-100 translate-middle badge bg-danger">
+                    {{ wishlistCount }}
+                </span>
+            </a>
+
+            <a routerLink="/wishList" class="btn btn-light position-relative">
+                <i class="far fa-heart"></i>
+                <span *ngIf="wishlistCount > 0"
+                    class="position-absolute top-0 start-100 translate-middle badge bg-danger">
+                    {{ wishlistCount }}
+                </span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" style="margin-top: 56px;">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#categoryNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="categoryNav">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown" *ngFor="let category of categoryList">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center px-3" href="#"
+                        id="category{{category.id}}" data-bs-toggle="dropdown">
+                        <img [src]="category.imageUrl | imageUrlPipe" class="category-img me-2"
+                            alt="{{ category.name }}" style="width: 24px; height: 24px;">
+                        <span>{{ category.name }}</span>
+                    </a>
+                    <ul class="dropdown-menu" [attr.aria-labelledby]="'category' + category.id">
+                        <li *ngFor="let subcat of category.subCategories" class="dropdown-submenu">
+                            <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                (click)="navigateToProduct(subcat.id); $event.stopPropagation();"
+                                [attr.aria-expanded]="subcat.subCategories?.length ? 'true' : null">
+                                {{ subcat.name }}
+                                <span *ngIf="subcat.subCategories?.length">▶</span>
+                            </a>
+                            <ul *ngIf="subcat.subCategories?.length" class="dropdown-menu">
+                                <li *ngFor="let subSubcat of subcat.subCategories">
+                                    <a class="dropdown-item"
+                                        (click)="navigateToProduct(subSubcat.id); $event.stopPropagation();">
+                                        {{ subSubcat.name }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,22 @@
+.purchase-order-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+
+.grid-item {
+    flex: 1 1 12%; /* Adjust this value based on how many items you want per row */
+    min-width: 100px; /* Set a minimum width to avoid items becoming too small */
+    margin-bottom: 10px; /* Space between the rows */
+}
+
+.grid-item label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.grid-item select,
+.grid-item input {
+    width: 100%; /* Ensures inputs and selects take up the full width of their container */
+}

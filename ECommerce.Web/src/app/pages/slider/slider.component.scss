@@ -1,0 +1,44 @@
+.ngb-carousel {
+    position: relative;
+    height: 100%;
+}
+
+.img-fluid {
+    width: 100%;
+    height: 90%;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: left;
+}
+
+/* Keep animations */
+@keyframes fadeInUp {
+    0% { transform: translateY(50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    0% { transform: translateY(-50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes zoomIn {
+    0% { transform: scale(0.15); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Apply animations dynamically */
+.layer-slick1 {
+    animation-duration: 2s;
+    animation-fill-mode: both;
+}
+
+.layer-slick1[data-appear="fadeInDown"] { animation-name: fadeInDown; }
+.layer-slick1[data-appear="fadeInUp"] { animation-name: fadeInUp; }
+.layer-slick1[data-appear="zoomIn"] { animation-name: zoomIn; }

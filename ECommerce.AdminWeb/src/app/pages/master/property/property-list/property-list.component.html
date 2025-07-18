@@ -1,0 +1,70 @@
+<div class="card tile-panel">
+    <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
+        <h4 class="card-title mb-0">Properties</h4>
+        <div class="d-flex gap-2 mt-2 mt-md-0">
+            <div class="input-group float-end header-button" >
+                <input type="text" class="form-control shadow-sm" [(ngModel)]="propertyParameter.name" placeholder="Search here..." />
+                <button (click)="search()" class="btn btn-icon btn-tnx btn-outline-secondary">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+            <button (click)="add()" class="btn btn-icon btn-tnx" 
+                    [ngClass]="{'btn-outline-success': access.canInsert, 'btn-outline-secondary': !access.canInsert}"  
+                    title="{{access.canInsert ? 'Click here to add new record.' : 'You do not have add access to this page.'}}">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    
+
+    <div class="card-body">
+        <table class="table table-bordered table-hover sort">
+            <thead style="cursor: pointer;">
+                <tr>
+                    <th (click)="sort('Name')" class="sort-header">
+                        Name
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (propertyParameter.sortExpression != 'Name'), 'fa-sort-asc': (propertyParameter.sortExpression == 'Name' && propertyParameter.sortDirection === 'asc'), 'fa-sort-desc': (propertyParameter.sortExpression == 'Name' && propertyParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th (click)="sort('Description')" class="sort-header">
+                        Description
+                        <i class="fa"
+                            [ngClass]="{'fa-sort': (propertyParameter.sortExpression != 'Description'), 'fa-sort-asc': (propertyParameter.sortExpression == 'Description' && propertyParameter.sortDirection === 'asc'), 'fa-sort-desc': (propertyParameter.sortExpression == 'Description' && propertyParameter.sortDirection == 'desc') }"
+                            aria-hidden="true"></i>
+                    </th>
+
+                    <th style="width:100px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of propertyGrid?.properties;">
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>
+                        <button class="btn btn-icon btn-tnx" (click)="edit(item.id)" [ngClass]="{'btn-outline-primary':access.canUpdate, 'btn-outline-secondary':!access.canUpdate}" [disabled]="!access.canUpdate" title="{{access.canUpdate ? 'Click here to edit this record.' : 'You do not have edit access of this page.'}}"><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-icon btn-tnx" (click)="delete(item.id)"[ngClass]="{'btn-outline-danger':access.canDelete, 'btn-outline-secondary':!access.canDelete}" [disabled]="!access.canDelete"title="{{access.canDelete ? 'Click here to delete this record.' : 'You do not have delete access of this page.'}}"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-body-secondary">
+        <div class="float-start card-header-controls">
+            <select [(ngModel)]="propertyParameter.pageSize" (change)="search()" class="form-select">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+            </select>
+        </div>
+        <div class="float-start total-records">Total Record(s) <strong>{{propertyGrid.totalRecords}}</strong></div>
+        <div class="float-end">
+            <ngb-pagination [collectionSize]="propertyGrid.totalRecords" [pageSize]="propertyParameter.pageSize"
+                [(page)]="propertyParameter.pageIndex" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="true" (pageChange)="search()"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+<div class="card tile-panel">
+    <div class="card-header">
+        <h4 style="display: contents;" class="card-title mb-0">Products</h4>
+        <button (click)="add()" class="btn btn-icon btn-tnx float-end" [ngClass]="{'btn-outline-success':access.canInsert, 'btn-outline-secondary':!access.canInsert}" title="{{access.canInsert ? 'Click here to add new record.' : 'You do not have add access of this page.'}}">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <form #SearchProductForm="ngForm" novalidate>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group mb-2">
+                                <label  class="form-label">Name</label>
+                                <!-- <div class="input-group">
+                                    <input 
+                                        type="text" 
+                                        class="form-control shadow-sm" 
+                                        [(ngModel)]="productParameterModel.name" 
+                                        id="inSearchName" 
+                                        name="inSearchName" 
+                                        placeholder="Product Name">
+                                </div> -->
+                                <app-product-selector 
+                                    #productSelectorRef 
+                                    (productSelected)="onProductSelected($event)">
+                                </app-product-selector>
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="inSearchCategoryId" class="form-label">Category</label>
+                                <div class="input-group">
+                                    <select 
+                                        class="form-select shadow-sm" 
+                                        [(ngModel)]="productParameterModel.categoryId" 
+                                        id="inSearchCategoryId" 
+                                        name="inSearchCategoryId">
+                                        <option value="0">Select Category</option>
+                                        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="inSearchDescription" class="form-label">Description</label>
+                                <div class="input-group">
+                                    <input 
+                                        type="text" 
+                                        class="form-control shadow-sm" 
+                                        [(ngModel)]="productParameterModel.description" 
+                                        id="inSearchDescription" 
+                                        name="inSearchDescription" 
+                                        placeholder="Description">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-3 mb-4">
+                        <div>
+                            <button class="btn btn-primary" 
+                                    (click)="search()" 
+                                    [ngClass]="{'btn-outline-primary':!access.canView, 'btn-outline-secondary':!access.canView}" 
+                                    title="{{!(!access.canView) ? 'Click here to search record.' : 'You do not have search access of this page.'}}">
+                                Search
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="reset(productSelectorRef)">Reset</button>
+                        </div>
+                        <div>
+                            <button class="btn btn-icon btn-tnx btn-primary" (click)="syncAll()" title="Click to sync All Products">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="table-wrapper">
+            <div class="table-scroll">
+                <table class="table table-hover common-table-bordered main-table">
+                    <thead>
+                        <tr>
+                            <th (click)="sort('Id')" class="sort-header text-end">
+                                Id
+                                <i class="fa" [ngClass]="{'fa-sort': (productParameterModel.sortExpression != 'Id'), 'fa-sort-asc': (productParameterModel.sortExpression == 'Id' && productParameterModel.sortDirection === 'asc'), 'fa-sort-desc': (productParameterModel.sortExpression == 'Id' && productParameterModel.sortDirection === 'desc')}"></i>
+                            </th>
+                            <th (click)="sort('Name')" class="sort-header text-start">
+                                Name
+                                <i class="fa" [ngClass]="{'fa-sort': (productParameterModel.sortExpression != 'Name'), 'fa-sort-asc': (productParameterModel.sortExpression == 'Name' && productParameterModel.sortDirection === 'asc'), 'fa-sort-desc': (productParameterModel.sortExpression == 'Name' && productParameterModel.sortDirection === 'desc')}"></i>
+                            </th>
+                            <!-- <th (click)="sort('Description')" class="sort-header text-start">
+                                Description
+                                <i class="fa" [ngClass]="{'fa-sort': (productParameterModel.sortExpression != 'Description'), 'fa-sort-asc': (productParameterModel.sortExpression == 'Description' && productParameterModel.sortDirection === 'asc'), 'fa-sort-desc': (productParameterModel.sortExpression == 'Description' && productParameterModel.sortDirection === 'desc')}"></i>
+                            </th> -->
+                            <th (click)="sort('CategoryName')" class="sort-header text-start">
+                                Category
+                                <i class="fa" [ngClass]="{'fa-sort': (productParameterModel.sortExpression != 'CategoryName'), 'fa-sort-asc': (productParameterModel.sortExpression == 'CategoryName' && productParameterModel.sortDirection === 'asc'), 'fa-sort-desc': (productParameterModel.sortExpression == 'CategoryName' && productParameterModel.sortDirection === 'desc')}"></i>
+                            </th>
+                            <th class="sort-header text-end">Order Qty</th>
+                            <th class="sort-header text-end">Closing Qty</th>
+                            <th class="sort-header text-end">Discount Amount</th>
+                            <th class="sort-header text-start">SKU</th>
+                            <th class="sort-header text-start">Final Sell Price</th>
+                            <th class="sort-header text-start" style="width: 190px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of productGridModel?.products;">
+                            <td class="text-end">{{item.id}}</td>
+                            <td class="text-start">{{item.name}}</td>
+                            <!-- <td class="text-start">{{item.description}}</td> -->
+                            <td class="text-start">{{item.categoryName}}</td>
+
+                            <td class="text-end">{{item.orderQty}}</td>
+                            <td class="text-end">{{item.closingQty}}</td>
+                            <td class="text-end">{{item.discountAmount}}</td>
+                            <td class="text-end">{{item.sku}}</td>
+                            <td class="text-end">{{item.finalSellPrice}}</td>
+
+                            <td>
+                                <button 
+                                    (click)="sync(item.id)"
+                                    class="btn btn-icon btn-tnx btn-primary"
+                                    title="Click here to Sync Product '{{ item.name }}'">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </button>
+                                <button 
+                                    (click)="addProperties(item.id, item.name, item.categoryId)" 
+                                    class="btn btn-icon btn-tnx btn-outline-success" 
+                                    title="Click here to add properties to Product '{{ item.name }}'">
+                                    <i class="bi bi-tools"></i>
+                                </button>
+                                <button class="btn btn-icon btn-tnx" (click)="edit(item.id)" [ngClass]="{'btn-outline-primary':access.canUpdate, 'btn-outline-secondary':!access.canUpdate}" title="{{access.canUpdate ? 'Click here to edit this record.' : 'You do not have edit access of this page.'}}">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button class="btn btn-icon btn-tnx" (click)="delete(item.id)" [ngClass]="{'btn-outline-danger':access.canDelete, 'btn-outline-secondary':!access.canDelete}" title="{{access.canDelete ? 'Click here to delete this record.' : 'You do not have delete access of this page.'}}">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    <div class="card-footer text-body-secondary">
+        <div class="float-start card-header-controls">
+            <select [(ngModel)]="productParameterModel.pageSize" (change)="search()" class="form-select">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+            </select>
+        </div>
+        <div class="float-start total-records">Total Record(s) <strong>{{productGridModel.totalRecords}}</strong></div>
+        <div class="float-end">
+            <ngb-pagination [collectionSize]="productGridModel.totalRecords" [pageSize]="productParameterModel.pageSize" [(page)]="productParameterModel.pageIndex" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="search()"></ngb-pagination>
+        </div>
+    </div>
+</div>

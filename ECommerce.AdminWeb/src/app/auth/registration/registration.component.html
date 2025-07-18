@@ -1,0 +1,107 @@
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card register-card shadow-lg border-0 p-4 rounded-4">
+        <form #userForm="ngForm" novalidate>
+            <h4 class="text-center fw-bold mb-2">Create an account</h4>
+            <p class="text-center text-muted small mb-4">Sign up to unlock your journey with us.</p>
+
+            <div class="row g-2 mb-3">
+                <div class="col">
+                    <label for="inFirstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="user.firstName" id="inFirstName"
+                        name="inFirstName" required #inFirstName="ngModel"
+                        [ngClass]="{'is-invalid': (inFirstName.invalid && (inFirstName.touched || userForm.submitted))}">
+                    <div class="invalid-feedback"
+                        *ngIf="inFirstName.invalid && (inFirstName.touched || userForm.submitted)">First Name is
+                        required.</div>
+                </div>
+                <div class="col">
+                    <label for="inLastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="user.lastName" id="inLastName"
+                        name="inLastName" required #inLastName="ngModel"
+                        [ngClass]="{'is-invalid': (inLastName.invalid && (inLastName.touched || userForm.submitted))}">
+                    <div class="invalid-feedback"
+                        *ngIf="inLastName.invalid && (inLastName.touched || userForm.submitted)">Last Name is required.
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="inUsername" class="form-label">Username</label>
+                <input type="text" class="form-control" [(ngModel)]="user.username" id="inUsername" name="inUsername"
+                    required #inUsername="ngModel"
+                    [ngClass]="{'is-invalid': (inUsername.invalid && (inUsername.touched || userForm.submitted))}">
+                <div class="invalid-feedback" *ngIf="inUsername.invalid && (inUsername.touched || userForm.submitted)">
+                    Username is required.</div>
+            </div>
+            <div class="mb-3">
+                <label for="inEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" [(ngModel)]="user.email" id="inEmail" name="inEmail" placeholder="example@gamil.com" required
+                    email #inEmail="ngModel"
+                    [ngClass]="{'is-invalid': (inEmail.invalid && (inEmail.touched || userForm.submitted))}">
+                <div class="invalid-feedback" *ngIf="inEmail.invalid && (inEmail.touched || userForm.submitted)">
+                    Please enter a valid email.
+                </div>
+            </div>
+
+            <div class="row g-2 mb-3">
+                <div class="col">
+                    <label for="inPassword" class="form-label">Password</label>
+                    <div class="position-relative">
+                        <input [type]="showPassword.password" class="form-control password-field"
+                            [(ngModel)]="user.password" id="inPassword" name="inPassword" required #inPassword="ngModel"
+                            [ngClass]="{'is-invalid': inPassword.invalid && (inPassword.touched || userForm.submitted)}"
+                             />
+                        <span class="eye-toggle-icon" (click)="togglePassword('password')">
+                            <i [ngClass]="{
+                    'bi-eye': showPassword.password === 'text',
+                    'bi-eye-slash': showPassword.password === 'password'
+                }"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="inPassword.invalid && (inPassword.touched || userForm.submitted)">
+                        Password is required.
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="inConfirmPassword" class="form-label">Confirm Password</label>
+                    <div class="position-relative">
+                        <input [type]="showPassword.confirmPassword" class="form-control password-field"
+                            [(ngModel)]="user.confirmPassword" id="inConfirmPassword" name="inConfirmPassword" required
+                            #inConfirmPassword="ngModel" [ngClass]="{
+                    'is-invalid': (
+                        (inConfirmPassword.touched || userForm.submitted) &&
+                        (inConfirmPassword.invalid || inConfirmPassword.value !== inPassword.value)
+                    )
+                }"  />
+                        <span class="eye-toggle-icon" (click)="togglePassword('confirmPassword')">
+                            <i [ngClass]="{
+                    'bi-eye': showPassword.confirmPassword === 'text',
+                    'bi-eye-slash': showPassword.confirmPassword === 'password'
+                }"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="inConfirmPassword.invalid && (inConfirmPassword.touched || userForm.submitted)">
+                        Confirm Password is required.
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="(inConfirmPassword.touched || userForm.submitted) && inConfirmPassword.value !== inPassword.value">
+                        Passwords do not match.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="agree" required />
+                <label class="form-check-label small" for="agree">
+                    I agree with <a href="#" class="text-danger text-decoration-none">Privacy Policy</a> and <a href="#"
+                        class="text-danger text-decoration-none">Terms of Conditions</a>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 rounded" (click)="save(userForm.valid ?? false)">Signup</button>
+            <p class="text-center mt-3 mb-0 small">Already have an account? <a href="#"
+                    class="text-success text-decoration-none">Login now</a></p>
+        </form>
+    </div>
+</div>

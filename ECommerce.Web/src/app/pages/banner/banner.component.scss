@@ -1,0 +1,50 @@
+.banner-slide {
+    height: 230px; /* Increased height for better visibility */
+    background: linear-gradient(to right, #0033cc, #0099ff); /* Flipkart-like blue gradient */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.banner-slide:hover {
+    transform: scale(1.02);
+}
+
+.carousel-caption {
+    padding: 15px;
+    display: inline-block;
+    max-width: 100%;
+    text-align: center;
+}
+
+.carousel-caption h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.carousel-control-prev, 
+.carousel-control-next {
+    width: 5%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: brightness(0) invert(1); /* White color for arrows */
+}
+
+@media (max-width: 768px) {
+    .banner-slide {
+        height: 250px; /* Smaller height for mobile */
+    }
+    
+    .carousel-caption h2 {
+        font-size: 22px;
+    }
+}
